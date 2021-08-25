@@ -21,6 +21,12 @@ prospective customers and selecting promising retail locations
 [@JDeReuRobbin1981]. Robbin's tool combined the latest in marketing
 theory with cutting-edge methods in quantitative geographic sociology. 
 
+
+
+```{.table caption="This is a caption {#tbl:csv}" source="../csv/eg.csv"}
+```
+
+
 *Market segmentation* [@WSmith1956] solved the problem of a complex
 market of heterogenous customers by dividing it into several sub-markets
 of homogenous customers. *Demographics* -- that is, population
