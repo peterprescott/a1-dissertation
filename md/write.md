@@ -1,5 +1,7 @@
 ---
-title: "Defining a Micro-Geodemographic *Natural Area* with Street-Network Tesselation"
+title: |
+  | Defining a Micro-Geodemographic *Natural Area*
+  | with Street-Network Tesselation
 subtitle: "A Proposed Solution to the Problem of Modifiable Areal Neighbourhood Units"
 author: Peter Prescott
 abstract: "Abstract..."
@@ -23,8 +25,26 @@ theory with cutting-edge methods in quantitative geographic sociology.
 
 
 
-```{.table caption="This is a caption {#tbl:csv}" source="../csv/eg.csv"}
+```{.table caption="Scale of Neighbouring Relations {#tbl:csv}"
+source="../csv/neighbouring.csv"}
 ```
+
+```{.table caption="Overview of Clustering Methods {#tbl:cluster}"
+source="../csv/cluster.csv"}
+```
+
+
+
+![The Chicago School's Concentric Zones](../fig/EBurgess1925.png){#Fig:BurgessDiagrams}
+
+```{.table caption="Some Census Output Units {#tbl:geog}"
+source="../csv/geog.csv"}
+```
+
+```{.table caption="Geodemographic Types from the 2011 OAC {#tbl:oac}"
+source="../csv/oac2011.csv"}
+```
+
 
 
 *Market segmentation* [@WSmith1956] solved the problem of a complex
@@ -124,7 +144,19 @@ of the applications that have been suggested" (p.438).
 
 # Methods
 
+```{.table caption="GeoJSON Geometry Objects {#tbl:geojson}"
+source="../csv/geojson.csv"}
+```
+
+
 # Results
+
+
+```{.table caption="Some Coordinate Reference Systems {#tbl:crs}"
+source="../csv/crs.csv"}
+```
+
+
 
 # Discussion
 
