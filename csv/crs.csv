@@ -1,0 +1,5 @@
+Name,EPSG,Used by,Coordinates
+OSGB 1936 / British National Grid,27700,Ordnance Survey,"Easting, Northing"
+World Geodetic System 1984,4326,GPS navigation,"Latitude, Longitude"
+European Terrestrial Reference System 1989,4258,European Union,"Latitude, Longitude"
+Pseudo-Mercator (Spherical),3857,Google Maps,"Easting, Northing"

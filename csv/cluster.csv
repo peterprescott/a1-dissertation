@@ -1,0 +1,11 @@
+Method name,Parameters,Usecase,Geometry (metric used)
+K-Means,number of clusters,"General-purpose, even cluster size, flat geometry, not too many clusters, inductive",Distances between points
+Affinity propagation,"damping, sample preference","Many clusters, uneven cluster size, non-flat geometry, inductive",Graph distance (e.g. nearest-neighbor graph)
+Mean-shift,bandwidth,"Many clusters, uneven cluster size, non-flat geometry, inductive",Distances between points
+Spectral clustering,number of clusters,"Few clusters, even cluster size, non-flat geometry, transductive",Graph distance (e.g. nearest-neighbor graph)
+Ward hierarchical clustering,number of clusters or distance threshold,"Many clusters, possibly connectivity constraints, transductive",Distances between points
+Agglomerative clustering,"number of clusters or distance threshold, linkage type, distance","Many clusters, possibly connectivity constraints, non Euclidean distances, transductive",Any pairwise distance
+DBSCAN,neighborhood size,"Non-flat geometry, uneven cluster sizes, transductive",Distances between nearest points
+OPTICS,minimum cluster membership,"Non-flat geometry, uneven cluster sizes, variable cluster density, transductive",Distances between points
+Gaussian mixtures,many,"Flat geometry, good for density estimation, inductive",Mahalanobis distances to centers
+BIRCH,"branching factor, threshold, optional global clusterer.","Large dataset, outlier removal, data reduction, inductive",Euclidean distance between points

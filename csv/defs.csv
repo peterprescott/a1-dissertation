@@ -1,0 +1,4 @@
+Term,Definition
+Face block,A face block includes all of the dwellings that front on the same segment of the same street situated between any two cross streets. A face block terminates at an intersection.
+Tertiary face block,"A tertiary face block includes all of the dwelings that front on the same segment of the same street, which has been designed and maintained by governing authorities to promote local and pedestrian traffic, situated between any two cross streets. It has only one lane on each side and no median."
+Tertiary Intersection,if all face blocks contiguous

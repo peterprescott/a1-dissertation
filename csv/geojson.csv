@@ -1,0 +1,7 @@
+Type,Coordinates
+Point,a single position
+MultiPoint,an array of positions
+LineString,an array of two or more positions
+MultiLineString,an array of LineString coordinate arrays
+Polygon,an array of linear ring coordinate arrays
+MultiPolygon,an array of Polygon coordinate arrays
