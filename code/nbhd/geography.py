@@ -51,6 +51,7 @@ class Neighbourhood:
                   'rivers': 'rivers'}
         
         for w in wanted:
+            # need to buffer this slightly
             setattr(self, w, self.db.contains(table[w], self.geom.wkt))
         
         t1 = time()
@@ -65,5 +66,21 @@ class Neighbourhood:
         self.buildings.plot(ax=self.ax, color='lightgray')
         self.uprn.plot(ax=self.ax, color='black')
     
-    def find_neighbours():
-        pass
+    def find_neighbours(self):
+        
+        self._neighbour = dict()
+        self._neighbour['streets'] = self.db.nearest_neighbours(
+            'openuprn', 'openroads', self.geom
+        )
+        _streets = dict(zip(self._neighbour['streets'].UPRN, 
+                            self._neighbour['streets'].street_id))
+        self.uprn['street'] = self.uprn.UPRN.apply(
+            lambda x: _streets[x])
+        
+#         self._neighbour['buildings'] = self.db.nearest_neighbours(
+#             'openuprn', 'openmaplocal', self.geom
+#         )
+#         _buildings = dict(zip(r.UPRN, r.index))
+#         self.uprn['building'] = self.uprn.UPRN.apply(
+#             lambda x: _buildings[x])
+        

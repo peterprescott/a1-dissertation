@@ -33,10 +33,7 @@ class Base():
     
     def query(self, sql, spatial=False):
         'Query database.'
-        
-#         if 'ST_' in sql:
-#             spatial = True
-        
+
         if not spatial:
             return pd.read_sql(sql, self.engine)
         else:
@@ -50,14 +47,13 @@ class Base():
             ST_SetSRID(ST_Point({x}, {y}), 27700), 
             {buffer})
         '''
-#         return gpd.read_postgis(sql, self.engine, geom_col='geometry')
         return self.query(sql, spatial=True)
         
-    def contains(self, table, polygon):
-        sql = self._contains_query(table, polygon)
+    def contains(self, table, polygon, buffer=0):
+        sql = self._contains_query(table, polygon, buffer)
         return self.query(sql, spatial=True)
         
-    def _contains_query(self, table, polygon):
+    def _contains_query(self, table, polygon, buffer=0):
         return f'''
                 SELECT * from {table}
                     WHERE ST_Contains(
@@ -69,7 +65,7 @@ class Base():
         sql = f'''
         SELECT "UPRN",
                roads.name1 AS street,
-               roads.id AS street_gid,
+               roads.id AS street_id,
                roads.geometry::geometry(Linestring, 27700) AS street_geom,
                ST_Distance(roads.geometry, uprn.geometry) AS dist
         FROM ({self._contains_query(table1, boundary_wkt)}) AS uprn
