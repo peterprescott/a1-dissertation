@@ -2,14 +2,19 @@
 
 from time import time
 
+import pandas as pd
+import geopandas as gpd
 import matplotlib.pyplot as plt
+
 from shapely.geometry import (Point,
                               LineString,
                               Polygon, 
                               MultiPolygon)
-
+from shapely.ops import polygonize
+from mapclassify import greedy
 
 from .data import Base
+from .utils import my_timer
 
 
 class Neighbourhood:
@@ -40,9 +45,15 @@ class Neighbourhood:
         self.rail = msg
         self.rivers = msg
         
-    def get_data(self, wanted=('roads', 'uprn', 'buildings'), silent=True):
+#     @my_timer
+    def get_data(self, wanted=('roads', 'uprn', 'buildings'), 
+                 plus=None, silent=True):
         
         t0 = time()
+        
+        wanted_list = list(wanted)
+        if plus:
+            wanted_list.extend(plus)
         
         table = {'roads': 'openroads',
                   'uprn': 'openuprn',
@@ -50,7 +61,7 @@ class Neighbourhood:
                   'rail': 'railways',
                   'rivers': 'rivers'}
         
-        for w in wanted:
+        for w in wanted_list:
             # need to buffer this slightly
             setattr(self, w, self.db.contains(table[w], self.geom.wkt))
         
@@ -76,11 +87,47 @@ class Neighbourhood:
                             self._neighbour['streets'].street_id))
         self.uprn['street'] = self.uprn.UPRN.apply(
             lambda x: _streets[x])
+    
+    def tessellate(self):
         
-#         self._neighbour['buildings'] = self.db.nearest_neighbours(
-#             'openuprn', 'openmaplocal', self.geom
-#         )
-#         _buildings = dict(zip(r.UPRN, r.index))
-#         self.uprn['building'] = self.uprn.UPRN.apply(
-#             lambda x: _buildings[x])
+        self.tessellation = Tessellation([
+                self.roads, 
+                gpd.GeoDataFrame(geometry=gpd.GeoSeries(
+                    self.geom.boundary))
+            ])
+
+
+class FaceBlock():
+    '''
+    A face-block includes all of the dwellings
+    that front on the same segment of the same street
+    between any two intersections. [@RGrannis2009:p.31].
+    '''
+    
+    def __init__(self, street_id: str, nbhd: Neighbourhood):
+        pass
+    
+
+class Tessellation():
+    '''
+    A tessellation covers a plane with adjacent tiles with no gaps. 
+    '''
+    
+    def __init__(self, border_gdf_list, color=True):
+        'Requires a list of GeoDataFrames.'
+        
+        # assume everything has same CRS
+        crs = border_gdf_list[0].crs 
+        
+        borders = pd.concat(border_gdf_list)
+        borderlines = borders.unary_union
+        polygons = polygonize(borderlines)
+        tessellation = gpd.array.from_shapely(list(polygons),
+                                            crs=crs)
+        self.df = gpd.GeoDataFrame(geometry=tessellation)
+        if color:
+            self.df['c'] = greedy(self.df)
+            subplot = self.df.plot('c', cmap='binary')
+            self.figure = subplot.figure
+        
         

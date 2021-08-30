@@ -1,8 +1,9 @@
 import os
 
-from sqlalchemy import create_engine
 import pandas as pd
 import geopandas as gpd
+
+from sqlalchemy import create_engine
 
 
 user = os.environ.get('DB_USERNAME')
@@ -38,6 +39,14 @@ class Base():
             return pd.read_sql(sql, self.engine)
         else:
             return gpd.read_postgis(sql, self.engine, geom_col='geometry')
+    
+    def select(self, table):
+        if table in self.ls():
+            sql = f'SELECT * FROM {table}'
+            return gpd.read_postgis(sql, self.engine, geom_col='geometry')
+        else:
+            print(f'`{table}` is not a table in the database.')
+            return None
     
     def within(self, table, buffer, x=338157, y=393037):
         sql = f'''
