@@ -19,6 +19,7 @@ class Base():
     __url = f"postgres+psycopg2://{user}:{pwd}@{host}:{port}/geodemo"
     print('Initializing database connection...')
     engine = create_engine(__url)
+    print('Database connected!')
 
     def ls(self):
         'List database tables'
@@ -33,8 +34,8 @@ class Base():
     def query(self, sql, spatial=False):
         'Query database.'
         
-        if 'ST_' in sql:
-            spatial = True
+#         if 'ST_' in sql:
+#             spatial = True
         
         if not spatial:
             return pd.read_sql(sql, self.engine)
@@ -50,15 +51,33 @@ class Base():
             {buffer})
         '''
 #         return gpd.read_postgis(sql, self.engine, geom_col='geometry')
-        return self.query(sql)
+        return self.query(sql, spatial=True)
         
     def contains(self, table, polygon):
-        sql = f'''
-        SELECT
-        * from {table}
-        WHERE 
-            ST_Contains(ST_GeomFromText('{polygon}', 27700), geometry); 
-        '''
-        return self.query(sql)
+        sql = self._contains_query(table, polygon)
+        return self.query(sql, spatial=True)
         
-   
+    def _contains_query(self, table, polygon):
+        return f'''
+                SELECT * from {table}
+                    WHERE ST_Contains(
+                        ST_GeomFromText('{polygon}', 27700), 
+                    geometry) 
+        '''
+
+    def nearest_neighbours(self, table1, table2, boundary_wkt):
+        sql = f'''
+        SELECT "UPRN",
+               roads.name1 AS street,
+               roads.id AS street_gid,
+               roads.geometry::geometry(Linestring, 27700) AS street_geom,
+               ST_Distance(roads.geometry, uprn.geometry) AS dist
+        FROM ({self._contains_query(table1, boundary_wkt)}) AS uprn
+        CROSS JOIN LATERAL (
+          SELECT roads.name1, roads.geometry, roads.id
+          FROM ({self._contains_query(table2, boundary_wkt)}) AS roads 
+          ORDER BY roads.geometry <-> uprn.geometry
+          LIMIT 1
+        ) roads;
+        '''
+        return self.query(sql, spatial=False)
