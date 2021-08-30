@@ -1,6 +1,8 @@
 '''Geographical analysis.'''
 
 from time import time
+
+import matplotlib.pyplot as plt
 from shapely.geometry import (Point,
                               LineString,
                               Polygon, 
@@ -38,25 +40,30 @@ class Neighbourhood:
         self.rail = msg
         self.rivers = msg
         
-    def get_data(self, roads=True, uprn=True, buildings=True,
-                 rail=False, rivers=False):
+    def get_data(self, wanted=('roads', 'uprn', 'buildings'), silent=True):
         
         t0 = time()
         
-        if roads:
-            self.roads = self.db.contains('openroads', self.geom.wkt)
-        if uprn:
-            self.uprn = self.db.contains('openuprn', self.geom.wkt)
-        if buildings:
-            self.buildings = self.db.contains('openmaplocal', self.geom.wkt)
-        if rail:
-            self.rail = self.db.contains('railways', self.geom.wkt)
-        if rivers:
-            self.rivers = self.db.contains('rivers', self.geom.wkt)
-            
+        table = {'roads': 'openroads',
+                  'uprn': 'openuprn',
+                  'buildings': 'openmaplocal',
+                  'rail': 'railways',
+                  'rivers': 'rivers'}
+        
+        for w in wanted:
+            setattr(self, w, self.db.contains(table[w], self.geom.wkt))
+        
         t1 = time()
         t = t1 - t0
-        print(f'Getting data took {t//60} minutes, {t%60} seconds.')
+        print(('Getting data took'),
+              (f'{int(t//60)} minutes, {int(t%60)} seconds.'))
+    
+    def plot(self, figsize_x=12, figsize_y=12, cmap='Set2'):
+        
+        _fig, self.ax = plt.subplots(figsize=(figsize_x,figsize_y))
+        self.roads.plot(ax=self.ax)
+        self.buildings.plot(ax=self.ax, color='lightgray')
+        self.uprn.plot(ax=self.ax, color='black')
     
     def find_neighbours():
         pass
