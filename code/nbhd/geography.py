@@ -5,6 +5,8 @@ from time import time
 import pandas as pd
 import geopandas as gpd
 import matplotlib.pyplot as plt
+import numpy as np
+from scipy.spatial import Voronoi
 
 from shapely.geometry import (Point,
                               LineString,
@@ -36,16 +38,6 @@ class Neighbourhood:
             self.geom = MultiPolygon(
                 list(enclosures.geometry))
         
-        msg = 'Need to call `Neighbourhood.get_data()!'
-        
-        self.roads = msg
-        self.uprn = msg
-        self.buildings = msg
-        
-        self.rail = msg
-        self.rivers = msg
-        
-#     @my_timer
     def get_data(self, wanted=('roads', 'uprn', 'buildings'), 
                  plus=None, silent=True):
         
@@ -96,6 +88,11 @@ class Neighbourhood:
                     self.geom.boundary))
             ])
 
+class StreetNetwork():
+    '''
+    A spatial network is a graph in geometric space.
+    '''
+    pass
 
 class FaceBlock():
     '''
@@ -107,6 +104,18 @@ class FaceBlock():
     def __init__(self, street_id: str, nbhd: Neighbourhood):
         pass
     
+class VoronoiCells():
+    '''
+    Use Voronoi algorithm to divide space between points.
+    '''
+    def __init__(self, points):
+        vor = Voronoi(points)
+        lines = [
+            LineString(vor.vertices[line])
+            for line in vor.ridge_vertices
+            if -1 not in line
+        ]
+        self.cells = polygonize(lines)
 
 class Tessellation():
     '''
