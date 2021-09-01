@@ -42,3 +42,22 @@ just need to tidy it up...
 
 hmm, meh.
 AA04_SmallScale.ipynb suggests something is still not working.
+
+well. lunch.
+what have we done this morning?
+`go.py` ~ a quickstart new notebook set of standard imports
+we've got a working `cellularize` function for voronoi cells
+we solved the problem of missing cells around the boundaries
+we have found that cellularize needs 4 points to work
+we can tesselate a neighbourhood by its local streets (`n.tessellate()`)
+we can cellularize a neighbourhood by its uprn points:
+    - (`cellularize(n.uprn.geometry, n.geom)`)
+but when we try to cellularize its tiles it doesn't seem to work (AA04_SmallScale.ipynb)
+i'm not sure why, and i'm not sure whether it's worth any more time.
+answer: probably not.
+
+so after lunch.
+- face-blocks.
+- intersections.
+- graph theory.
+- statistics.
