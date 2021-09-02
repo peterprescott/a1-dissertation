@@ -58,11 +58,11 @@ class Base():
         '''
         return self.query(sql, spatial=True)
         
-    def contains(self, table, polygon, buffer=0):
-        sql = self._contains_query(table, polygon, buffer)
+    def contains(self, table, polygon):
+        sql = self._contains_query(table, polygon)
         return self.query(sql, spatial=True)
         
-    def _contains_query(self, table, polygon, buffer=0):
+    def _contains_query(self, table, polygon):
         return f'''
                 SELECT * from {table}
                     WHERE ST_Contains(
@@ -70,19 +70,17 @@ class Base():
                     geometry) 
         '''
 
-    def nearest_neighbours(self, table1, table2, boundary_wkt):
+    def nearest_neighbours(self, table, boundary_wkt):
         sql = f'''
         SELECT "UPRN",
-               roads.name1 AS street,
-               roads.id AS street_id,
-               roads.geometry::geometry(Linestring, 27700) AS street_geom,
-               ST_Distance(roads.geometry, uprn.geometry) AS dist
-        FROM ({self._contains_query(table1, boundary_wkt)}) AS uprn
+               dbtable.id AS id,
+               ST_Distance(dbtable.geometry, uprn.geometry) AS dist
+        FROM ({self._contains_query('openuprn', boundary_wkt)}) AS uprn
         CROSS JOIN LATERAL (
-          SELECT roads.name1, roads.geometry, roads.id
-          FROM ({self._contains_query(table2, boundary_wkt)}) AS roads 
-          ORDER BY roads.geometry <-> uprn.geometry
+          SELECT dbtable.geometry, dbtable.id
+          FROM ({self._contains_query(table, boundary_wkt)}) AS dbtable 
+          ORDER BY dbtable.geometry <-> uprn.geometry
           LIMIT 1
-        ) roads;
+        ) dbtable;
         '''
         return self.query(sql, spatial=False)
