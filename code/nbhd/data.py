@@ -72,15 +72,34 @@ class Base():
 
     def nearest_neighbours(self, table, boundary_wkt):
         sql = f'''
-        SELECT "UPRN",
-               dbtable.id AS id,
+        SELECT uprn."UPRN",
+                uprn.geometry as uprn_geometry,
+                dbtable.*,
                ST_Distance(dbtable.geometry, uprn.geometry) AS dist
         FROM ({self._contains_query('openuprn', boundary_wkt)}) AS uprn
         CROSS JOIN LATERAL (
-          SELECT dbtable.geometry, dbtable.id
+          SELECT dbtable.* 
           FROM ({self._contains_query(table, boundary_wkt)}) AS dbtable 
           ORDER BY dbtable.geometry <-> uprn.geometry
           LIMIT 1
         ) dbtable;
+        '''
+        return self.query(sql, spatial=True)
+    
+    def nearest_same(self, table, boundary_wkt, within):
+        wkt = self._contains_query(table, boundary_wkt)
+        sql = f'''
+        SELECT dbtable.id as id_1,
+                table1.id as id_2,
+        ST_Distance(dbtable.geometry, table1.geometry) AS dist
+        FROM ({wkt}) AS table1
+        CROSS JOIN LATERAL (
+          SELECT id, geometry
+          FROM ({wkt}) AS dbtable 
+          WHERE ST_Distance(dbtable.geometry, table1.geometry) < {within} 
+        ) AS dbtable
+        WHERE dbtable.id != table1.id
+        ;
+
         '''
         return self.query(sql, spatial=False)
