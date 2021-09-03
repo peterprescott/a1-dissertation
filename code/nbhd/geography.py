@@ -4,6 +4,7 @@ from time import time
 
 import pandas as pd
 import geopandas as gpd
+import networkx as nx
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.spatial import Voronoi
@@ -51,15 +52,15 @@ class Neighbourhood:
                     node_distance=30):
 
         # nearest roads ~ 'slimroads' is without motorways and secondary roads
-        nr_roads = n.db.nearest_neighbours('openroads', n.geom.buffer(10))
+        nr_roads = self.db.nearest_neighbours('openroads', self.geom.buffer(10))
         # nearest buildings
-        nr_buildings = n.db.nearest_neighbours('openmaplocal', n.geom.buffer(1))
+        nr_buildings = self.db.nearest_neighbours('openmaplocal', self.geom.buffer(1))
         # merge on UPRN
         df = nr_buildings.merge(nr_roads, on=['UPRN', 'uprn_geometry'], 
                                 how='inner', suffixes=('_building', '_street'))
 
         # 1 eliminate non-building properties : distance to building must == 0
-        df1 = df.loc[df.dist_building==0]
+        df1 = df.loc[df.dist_building==0].copy()
 
         # 2 eliminate non-residential buildings : area / uprn count must < 250
         building_counts = dict(df1.id_building.value_counts())
@@ -67,7 +68,7 @@ class Neighbourhood:
         df1['footprint_area'] = gpd.GeoSeries(df1.geometry_building).area
         df1['footprint_area_per_uprn'] = df1.footprint_area / df1.building_counts
         df1['residential_building'] = df1['footprint_area_per_uprn'] < footprint_threshold
-        df2 = df1.loc[df1.residential_building]
+        df2 = df1.loc[df1.residential_building].copy()
 
         # 3 establish whether roads are residential : length / uprn count must < 5??
         street_counts = dict(df2.id_street.value_counts())
@@ -78,11 +79,11 @@ class Neighbourhood:
         df['residential'] = df.id_street.apply(lambda x: residential.get(x, False))
         df['short_street'] = df.length < short_threshold
         df['res_or_short'] = df.residential | df.short_street
-        df3 = df.loc[df.res_or_short]
+        df3 = df.loc[df.res_or_short].copy()
 
         # 4 treat nearby nodes as equivalent
-        translator = db.get_nearest_nodes_translator(self, node_distance)
-        edges = df3.loc[~df3.duplicated()]
+        translator = self.db.get_nearest_nodes_translator(self, node_distance)
+        edges = df3.loc[~df3.duplicated()].copy()
         edges['translated_start'] = edges.startNode.apply(lambda x: translator.get(x, x))
         edges['translated_end'] = edges.endNode.apply(lambda x: translator.get(x, x))
 
