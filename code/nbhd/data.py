@@ -2,6 +2,7 @@ import os
 
 import pandas as pd
 import geopandas as gpd
+import networkx as nx
 
 from sqlalchemy import create_engine
 
@@ -98,8 +99,13 @@ class Base():
           FROM ({wkt}) AS dbtable 
           WHERE ST_Distance(dbtable.geometry, table1.geometry) < {within} 
         ) AS dbtable
-        WHERE dbtable.id != table1.id
-        ;
-
+        WHERE dbtable.id != table1.id;
         '''
         return self.query(sql, spatial=False)
+
+    def get_nearest_nodes_translator(self, polygon, within):
+        nearest_nodes = self.nearest_same('roadnodes', polygon.buffer(1), within)
+        g = nx.from_pandas_edgelist(nearest_nodes, 'id_1', 'id_2', True)
+        subgraphs =[g.subgraph(c) for c in nx.connected_components(g)]
+        translator = {n: list(g.nodes)[0] for g in subgraphs for n in g.nodes}
+        return translator

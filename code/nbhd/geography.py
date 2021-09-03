@@ -46,13 +46,13 @@ class Neighbourhood:
     
     def get_communities(self, 
                     footprint_threshold=250, 
-                    res_length_threshold=30, 
-                    short_threshold=50, 
+                    res_length_threshold=20, 
+                    short_threshold=20, 
                     min_community_size=0, 
-                    node_distance=30):
+                    node_distance=5):
 
         # nearest roads ~ 'slimroads' is without motorways and secondary roads
-        nr_roads = self.db.nearest_neighbours('openroads', self.geom.buffer(10))
+        nr_roads = self.db.nearest_neighbours('slimroads', self.geom.buffer(10))
         # nearest buildings
         nr_buildings = self.db.nearest_neighbours('openmaplocal', self.geom.buffer(1))
         # merge on UPRN
@@ -62,7 +62,7 @@ class Neighbourhood:
         # 1 eliminate non-building properties : distance to building must == 0
         df1 = df.loc[df.dist_building==0].copy()
 
-        # 2 eliminate non-residential buildings : area / uprn count must < 250
+        # 2 eliminate non-residential buildings
         building_counts = dict(df1.id_building.value_counts())
         df1['building_counts'] = df1.id_building.apply(lambda x: building_counts.get(x, 0))
         df1['footprint_area'] = gpd.GeoSeries(df1.geometry_building).area
@@ -70,7 +70,7 @@ class Neighbourhood:
         df1['residential_building'] = df1['footprint_area_per_uprn'] < footprint_threshold
         df2 = df1.loc[df1.residential_building].copy()
 
-        # 3 establish whether roads are residential : length / uprn count must < 5??
+        # 3 establish whether roads are residential 
         street_counts = dict(df2.id_street.value_counts())
         df2['street_counts'] = df2.id_street.apply(lambda x: street_counts.get(x, 0))
         df2['street_length_per_uprn'] = df2.length / df2.street_counts
@@ -82,7 +82,7 @@ class Neighbourhood:
         df3 = df.loc[df.res_or_short].copy()
 
         # 4 treat nearby nodes as equivalent
-        translator = self.db.get_nearest_nodes_translator(self, node_distance)
+        translator = self.db.get_nearest_nodes_translator(self.geom, node_distance)
         edges = df3.loc[~df3.duplicated()].copy()
         edges['translated_start'] = edges.startNode.apply(lambda x: translator.get(x, x))
         edges['translated_end'] = edges.endNode.apply(lambda x: translator.get(x, x))
@@ -90,7 +90,7 @@ class Neighbourhood:
         # 5 find connected networks of residential streets
         g = nx.from_pandas_edgelist(edges, 'translated_start', 'translated_end', True)
         subgraphs =[g.subgraph(c) for c in nx.connected_components(g)]
-        sgs = [sg for sg in subgraphs if len(sg) > 1]
+        sgs = [sg for sg in subgraphs if len(sg) > min_community_size]
 
         # 6 add community labels
         communities = dict()
