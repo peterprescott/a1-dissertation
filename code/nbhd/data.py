@@ -73,8 +73,9 @@ class Base():
         sql = f'''
              SELECT * from {table}
                 WHERE ST_{st_query.capitalize()}(
-                    ST_GeomFromText('{polygon}', {crs}), 
-                geometry) 
+                    geometry,
+                    ST_GeomFromText('{polygon}', {crs})
+                    )
         '''
         return sql
 
