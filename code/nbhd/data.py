@@ -32,6 +32,26 @@ class Base():
            AND table_type='BASE TABLE';'''
 
         return list(pd.read_sql(sql, self.engine).table_name)
+
+    def info(self, table_name):
+        sql = f'''
+            SELECT
+                a.attname as "Column",
+                pg_catalog.format_type(a.atttypid, a.atttypmod) as "Datatype"
+            FROM
+                pg_catalog.pg_attribute a
+            WHERE
+                a.attnum > 0
+                AND NOT a.attisdropped
+                AND a.attrelid = (
+                    SELECT c.oid
+                    FROM pg_catalog.pg_class c
+                        LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+                    WHERE c.relname = '{table_name}'
+                        AND pg_catalog.pg_table_is_visible(c.oid)
+                );
+            '''
+        return self.query(sql)
     
     def query(self, sql, spatial=False):
         'Query database.'
@@ -49,63 +69,105 @@ class Base():
             print(f'`{table}` is not a table in the database.')
             return None
     
-    def within(self, table, buffer, x=338157, y=393037):
+    def _spatial_query(self, table, st_query, polygon, crs=27700):
         sql = f'''
-        SELECT * FROM {table} 
-        WHERE ST_DWithin(
-            geometry, 
-            ST_SetSRID(ST_Point({x}, {y}), 27700), 
-            {buffer})
+             SELECT * from {table}
+                WHERE ST_{st_query.capitalize()}(
+                    ST_GeomFromText('{polygon}', {crs}), 
+                geometry) 
         '''
-        return self.query(sql, spatial=True)
-        
+        return sql
+
     def contains(self, table, polygon):
-        sql = self._contains_query(table, polygon)
+        sql = self._spatial_query(table, 'contains', polygon)
         return self.query(sql, spatial=True)
+
+    def crosses(self, table, polygon):
+        sql = self._spatial_query(table, 'crosses', polygon)
+        return self.query(sql, spatial=True)
+
+    def disjoint(self, table, polygon):
+        sql = self._spatial_query(table, 'disjoint', polygon)
+        return self.query(sql, spatial=True)
+
+    def equals(self, table, polygon):
+        sql = self._spatial_query(table, 'equals', polygon)
+        return self.query(sql, spatial=True)
+
+    def intersects(self, table, polygon):
+        sql = self._spatial_query(table, 'intersects', polygon)
+        return self.query(sql, spatial=True)
+
+    def overlaps(self, table, polygon):
+        sql = self._spatial_query(table, 'overlaps', polygon)
+        return self.query(sql, spatial=True)
+
+    def touches(self, table, polygon):
+        sql = self._spatial_query(table, 'touches', polygon)
+        return self.query(sql, spatial=True)
+
+    def within(self, table, polygon):
+        sql = self._spatial_query(table, 'within', polygon)
+        return self.query(sql, spatial=True)
+
+    def covers(self, table, polygon):
+        sql = self._spatial_query(table, 'covers', polygon)
+        return self.query(sql, spatial=True)
+
+    def coveredBy(self, table, polygon):
+        sql = self._spatial_query(table, 'coveredBy', polygon)
+        return self.query(sql, spatial=True)
+
+    def containsProperly(self, table, polygon):
+        sql = self._spatial_query(table, 'containsProperly', polygon)
+        return self.query(sql, spatial=True)
+
+    def knn(self, table1, table2, polygon, k=1, max_distance=None, spatial_query='intersects'):
+        '''
+        Find k nearest-neighbours for results from table1 and table2 
+        as returned by given spatial_query for given polygon.
+        '''
+        difference_condition = ''
+        maximum_condition = ''
         
-    def _contains_query(self, table, polygon):
-        return f'''
-                SELECT * from {table}
-                    WHERE ST_Contains(
-                        ST_GeomFromText('{polygon}', 27700), 
-                    geometry) 
-        '''
-
-    def nearest_neighbours(self, table, boundary_wkt):
+        sql_table1 = self._spatial_query(table1, spatial_query, polygon)
+        
+        if table2 == table1:
+            sql_table2 = sql_table1
+            difference_condition = 'WHERE t1.id != t2.id'
+        else:
+            sql_table2 = self._spatial_query(table2, spatial_query, polygon)
+        
+        if max_distance:
+            if difference_condition:
+                start_word = 'AND'
+            else:
+                start_word = 'WHERE'
+            maximum_condition = f'''{start_word} ST_Distance(
+                        t1.geometry, t2.geometry
+                        ) < {max_distance}'''
+        
         sql = f'''
-        SELECT uprn."UPRN",
-                uprn.geometry as uprn_geometry,
-                dbtable.*,
-               ST_Distance(dbtable.geometry, uprn.geometry) AS dist
-        FROM ({self._contains_query('openuprn', boundary_wkt)}) AS uprn
+        SELECT t1.*,
+               t2.*,
+               ST_Distance(t1.geometry, t2.geometry) AS dist
+        FROM ({sql_table1}) AS t1
         CROSS JOIN LATERAL (
-          SELECT dbtable.* 
-          FROM ({self._contains_query(table, boundary_wkt)}) AS dbtable 
-          ORDER BY dbtable.geometry <-> uprn.geometry
-          LIMIT 1
-        ) dbtable;
+          SELECT t2.* 
+          FROM ({sql_table2}) AS t2
+          {difference_condition}
+          {maximum_condition}
+          ORDER BY t1.geometry <-> t2.geometry
+          LIMIT {k}
+        ) AS t2 ;
         '''
-        return self.query(sql, spatial=True)
-    
-    def nearest_same(self, table, boundary_wkt, within):
-        wkt = self._contains_query(table, boundary_wkt)
-        sql = f'''
-        SELECT dbtable.id as id_1,
-                table1.id as id_2,
-        ST_Distance(dbtable.geometry, table1.geometry) AS dist
-        FROM ({wkt}) AS table1
-        CROSS JOIN LATERAL (
-          SELECT id, geometry
-          FROM ({wkt}) AS dbtable 
-          WHERE ST_Distance(dbtable.geometry, table1.geometry) < {within} 
-        ) AS dbtable
-        WHERE dbtable.id != table1.id;
-        '''
-        return self.query(sql, spatial=False)
+        
+        return self.query(sql)
 
-    def get_nearest_nodes_translator(self, polygon, within):
-        nearest_nodes = self.nearest_same('roadnodes', polygon.buffer(1), within)
+    def nn_translator(self, table, polygon, max_distance):
+        nearest_nodes = self.knn(table, table, 
+                                 polygon, k=100, max_distance=max_distance)
         g = nx.from_pandas_edgelist(nearest_nodes, 'id_1', 'id_2', True)
-        subgraphs =[g.subgraph(c) for c in nx.connected_components(g)]
+        subgraphs = [g.subgraph(c) for c in nx.connected_components(g)]
         translator = {n: list(g.nodes)[0] for g in subgraphs for n in g.nodes}
         return translator
