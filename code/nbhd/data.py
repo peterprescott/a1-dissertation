@@ -7,22 +7,37 @@ import networkx as nx
 from sqlalchemy import create_engine
 
 
-user = os.environ.get('DB_USERNAME')
-pwd = os.environ.get('DB_PASSWORD')
-host = os.environ.get('DB_HOSTNAME')
-port = os.environ.get('DB_PORT')
-
-# note that 27700 is the British National Grid reference number.
-
-
 class Base():
     'Hide the database code.'
     
-    __url = f"postgres+psycopg2://{user}:{pwd}@{host}:{port}/geodemo"
-    print('Initializing database connection...')
-    engine = create_engine(__url)
-    print('Database connected!')
+    def __init__(self, user=None, pwd=None, host=None, port=None, db=None):
+        if not user:
+            user = os.environ.get('DB_USERNAME')
+        if not pwd:
+            pwd = os.environ.get('DB_PASSWORD')
+        if not host:
+            host = os.environ.get('DB_HOSTNAME')
+        if not port:
+            port = os.environ.get('DB_PORT')
+        if not db:
+            db = os.environ.get('DB_DATABASE')
 
+
+        __url = f"postgres+psycopg2://{user}:{pwd}@{host}:{port}/{db}"
+        print('Initializing database connection...')
+        self.engine = create_engine(__url)
+        count_tables = len(self.ls())
+        print('Database connected!')
+
+    
+    def query(self, sql, spatial=False):
+        'Query database.'
+
+        if not spatial:
+            return pd.read_sql(sql, self.engine)
+        else:
+            return gpd.read_postgis(sql, self.engine, geom_col='geometry')
+    
     def ls(self):
         'List database tables'
         
@@ -52,6 +67,7 @@ class Base():
                 );
             '''
         return self.query(sql)
+    
     
     def query(self, sql, spatial=False):
         'Query database.'
