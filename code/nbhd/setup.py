@@ -45,14 +45,40 @@ class OSDownloader():
 
 class ZippedGpkg():
 
-    def __init__(self, filepath):
+    def __init__(self, filepath, db_engine):
+        
+        self.filepath = filepath
+        
         self.zf = zipfile.ZipFile(filepath)
-        self.namelist = self.zf.namelist()
-        [self.gpkg] = [f for f in self.namelist 
-                       if f.split('.')[-1] == 'gpkg']
-        self.layers = fiona.listlayers(self.zf.open(self.gpkg))
         self.unpacked = dict()
+        self.namelist = self.zf.namelist()
+        
+        try:
+            [self.gpkg] = [f for f in self.namelist 
+                           if f.split('.')[-1] == 'gpkg']
+            
+            self.layers = fiona.listlayers(self.zf.open(self.gpkg))
+            self.type = 'GeoPackage'
+        except:
+            print('Not a GeoPackage, perhaps a Shapefile?')
+            self.layers = {s.split('/')[2].split('.')[0] 
+                           for s in self.namelist if len(s.split('/'))>2}
+            self.type = 'Shapefile'
 
-    def unpack(self, layername):
-        self.unpacked[layername] = gpd.read_file(
-            self.zf.open(self.gpkg), driver='GPKG', layer=layername)
+    def unpack(self, layername, db_tablename):
+        
+        if self.type == 'GeoPackage':
+            gdf = gpd.read_file(
+                self.zf.open(self.gpkg), driver='GPKG', layer=layername)
+            gdf.to_postgis(db_tablename, db_engine)
+        elif self.type == 'Shapefile':
+            names = [n for n in self.namelist if layername in n 
+                     and n.split('.')[-1] == 'shp']
+            for name in names:
+                print(name)
+                try:
+                    gdf = gpd.read_file(
+                        self.zf.open(name).read())
+                    gdf.to_postgis(db_tablename, db_engine)
+                except Exception as e:
+                    print(e)
