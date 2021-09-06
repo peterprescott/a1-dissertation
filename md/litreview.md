@@ -1,15 +1,3 @@
----
-title: |
-  | Defining a Micro-Geodemographic *Natural Area*
-  | with Street-Network Geometry
-subtitle: "A Proposed Solution to the Problem of Modifiable Areal Neighbourhood Units"
-author: Peter Prescott
-abstract: "Abstract..."
-
----
-
-# Introduction
-
 
 # Literature Review
 
@@ -22,30 +10,6 @@ created a product designed to simplify the process of targeting
 prospective customers and selecting promising retail locations
 [@JDeReuRobbin1981]. Robbin's tool combined the latest in marketing
 theory with cutting-edge methods in quantitative geographic sociology. 
-
-
-
-```{.table caption="Scale of Neighbouring Relations {#tbl:csv}"
-source="../csv/neighbouring.csv"}
-```
-
-```{.table caption="Overview of Clustering Methods {#tbl:cluster}"
-source="../csv/cluster.csv"}
-```
-
-
-
-![The Chicago School's Concentric Zones](../fig/EBurgess1925.png){#Fig:BurgessDiagrams}
-
-```{.table caption="Some Census Output Units {#tbl:geog}"
-source="../csv/geog.csv"}
-```
-
-```{.table caption="Geodemographic Types from the 2011 OAC {#tbl:oac}"
-source="../csv/oac2011.csv"}
-```
-
-
 
 *Market segmentation* [@WSmith1956] solved the problem of a complex
 market of heterogenous customers by dividing it into several sub-markets
@@ -142,24 +106,3 @@ the individual level" (p.118). @SOpenshawEtAl1980 repeated the warning
 subsequent national] Classifications... [as] they are unsuitable or many
 of the applications that have been suggested" (p.438).
 
-# Methods
-
-```{.table caption="GeoJSON Geometry Objects {#tbl:geojson}"
-source="../csv/geojson.csv"}
-```
-
-
-# Results
-
-
-```{.table caption="Some Coordinate Reference Systems {#tbl:crs}"
-source="../csv/crs.csv"}
-```
-
-
-
-# Discussion
-
-# Conclusion
-
-# References
