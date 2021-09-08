@@ -14,14 +14,52 @@ from shapely.ops import polygonize
 from mapclassify import greedy
 
 from .data import Base
-from .geometry import tessellate, cellularize
+from .geometry import tessellate, cellularize, trim, pointbox
 
+
+def square_plot(x, y, radius, db, cmap='Paired', alpha=0.2):
+    
+    # define point
+    p = Point(x, y)
+    
+    # get bounding box
+    b = pointbox(p, radius)
+    boundary = gpd.GeoDataFrame(geometry=gpd.GeoSeries(b.boundary))
+    
+    # get data within bounding box
+    roads = db.intersects('roads', b)
+    buildings = db.intersects('buildings', b)
+    properties = db.within('properties', MultiPolygon(buildings.geometry.values))
+    
+    roads = roads.loc[roads.road_function != 'Secondary Access Road']
+    
+    # tessellate
+    tiles = tessellate([roads, boundary])
+    tiles['c'] = greedy(tiles)
+    
+    # trim
+    roads.geometry = roads.geometry.apply(lambda x: trim(x, b))
+    buildings.geometry = buildings.geometry.apply(lambda x: trim(x, b))
+    tiles.geometry = tiles.geometry.apply(lambda x: trim(x,b))
+    properties = properties.loc[properties.geometry.within(b)]
+    
+    # plot
+    f,ax = plt.subplots(figsize=(12,12))
+    tiles.plot('c', cmap=cmap, alpha=alpha, ax=ax)
+    roads.plot(ax=ax, color='tab:brown', linewidth=6)
+    buildings.boundary.plot(ax=ax, color='k')
+    buildings.plot(ax=ax, color='grey')
+    properties.plot(color='k', ax=ax)
+    boundary.plot(ax=ax, color='k', linewidth=5)
+    ax.set_axis_off()
+    return ax, [roads, buildings, properties, boundary, tiles]
+    
 
 class Neighbourhood:
     '''
     Theoretically-informed and data-driven neighbourhood analysis.
     '''
-    def __init__(self, easting=338172, northing=391744, db=Base(), load=True):
+    def __init__(self, easting=338172, northing=391744, db=None, load=True):
         '''Begin with a point on the British National Grid.'''
 
         self.db = db

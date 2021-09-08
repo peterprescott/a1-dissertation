@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import geopandas as gpd
 from scipy.spatial import Voronoi
-from shapely.geometry import LineString, MultiLineString, MultiPolygon
+from shapely.geometry import LineString, MultiLineString, MultiPolygon, box
 from shapely.ops import polygonize, split
 
 
@@ -48,3 +48,5 @@ def trim(geometry, polygon):
         return MultiLineString([p for p in list(split(geometry, polygon.boundary)) 
                          if polygon.buffer(1).contains(p)])
     
+def pointbox(point, radius):
+    return box(*list(point.buffer(radius).bounds))
