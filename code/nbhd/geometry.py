@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import geopandas as gpd
 from scipy.spatial import Voronoi
-from shapely.geometry import LineString, MultiLineString
+from shapely.geometry import LineString, MultiLineString, MultiPolygon
 from shapely.ops import polygonize, split
 
 
@@ -38,3 +38,13 @@ def cellularize(pts_geoseries, polygon):
     cells_gdf = tessellate([boundary_gdf, lines_gdf])
 
     return cells_gdf
+
+def trim(geometry, polygon):
+    'Slice geometries of geoseries with polygon boundary and return parts inside'
+    if geometry.type == 'Polygon':
+        return MultiPolygon([p for p in list(split(geometry, polygon.boundary)) 
+                         if polygon.buffer(1).contains(p)])
+    if geometry.type == 'LineString':
+        return MultiLineString([p for p in list(split(geometry, polygon.boundary)) 
+                         if polygon.buffer(1).contains(p)])
+    
