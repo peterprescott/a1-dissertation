@@ -97,6 +97,17 @@ class Base():
             sql = f'SELECT (COUNT(*)) FROM {table}'
             return self.query(sql)
     
+    def percentile(self, table, numeric, column=None, categorical=None, percentile=0.5):
+        if categorical and categorical != 'Total':
+            condition = f"WHERE {column} LIKE '{categorical}' "
+        else:
+            condition = ''
+        sql = f'''
+        SELECT PERCENTILE_CONT({percentile}) WITHIN GROUP(ORDER BY {numeric}) FROM {table}
+        {condition}
+        '''
+        return self.query(sql)['percentile_cont'][0]
+
     def distinct(self, column, table):
         sql = f'SELECT DISTINCT({column}) FROM {table}'
         return self.query(sql)
