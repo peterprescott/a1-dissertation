@@ -8,6 +8,7 @@ import networkx as nx
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.spatial import Voronoi
+import networkx as nx
 
 from shapely.geometry import (Point, LineString, Polygon, MultiPolygon)
 from shapely.ops import polygonize
@@ -16,6 +17,83 @@ from mapclassify import greedy
 from .data import Base
 from .geometry import tessellate, cellularize, trim, pointbox
 
+
+def get_communities(db,
+                    polygon,
+                    footprint_threshold=250,
+                    res_length_threshold=50,
+                    short_threshold=50,
+                    node_distance=20,
+                    min_community_size = 10):
+    
+
+    # get nearest properties and buildings for given geometry
+    df = db.knn('properties', 'buildings', polygon)
+
+    # drop properties that are not in buildings
+    df = df.loc[df.dist==0]
+
+    # eliminate non-residential buildings
+    building_counts = dict(df.buildings_id.value_counts())
+    df['building_counts'] = df.buildings_id.apply(lambda x: building_counts.get(x,0))
+    df['footprint_area'] = gpd.GeoSeries.from_wkb(df.buildings_geometry).area
+    df['footprint_area_per_uprn'] = df.footprint_area / df.building_counts
+    df['residential_building'] = df[
+        'footprint_area_per_uprn'] < footprint_threshold
+    df1 = df.loc[df.residential_building].copy()
+
+    # get streets within the bounds of residential building polygons
+    bdgs_multiplygn = MultiPolygon(
+        list(gpd.GeoSeries.from_wkb(df1.buildings_geometry).geometry.values))
+    df2 = db.knn('properties', 'roads', 
+                 polygon=bdgs_multiplygn, polygon2=polygon, 
+                 t2_columns=['"startNode"', '"endNode"'])
+
+    df2 = gpd.GeoDataFrame(df2, geometry=gpd.GeoSeries.from_wkb(df2.roads_geometry))
+    df2['length'] = df2.geometry.length
+
+    # 3 establish whether roads are residential
+    street_counts = dict(df2.roads_id.value_counts())
+    df2['street_counts'] = df2.roads_id.apply(
+        lambda x: street_counts.get(x, 0))
+    df2['street_length_per_uprn'] = df2.length / df2.street_counts
+    df2['residential_street'] = df2.street_length_per_uprn < res_length_threshold
+    residential = dict(zip(df2.roads_id, df2.residential_street))
+    df2['residential'] = df2.roads_id.apply(
+        lambda x: residential.get(x, False))
+    df2['short_street'] = df2.length < short_threshold
+    df2['res_or_short'] = df2.residential | df2.short_street
+    df3 = df2.loc[df2.res_or_short].copy()
+
+    # 4 treat nearby nodes as equivalent
+    translator = nn_translator(db, 'nodes',
+        polygon, node_distance)
+
+    edges = df3.loc[~df3.duplicated()].copy()
+    edges['translated_start'] = edges.startNode.apply(
+        lambda x: translator.get(x, x))
+    edges['translated_end'] = edges.endNode.apply(
+        lambda x: translator.get(x, x))
+
+    # 5 find connected networks of residential streets
+    g = nx.from_pandas_edgelist(edges, 'translated_start',
+                                'translated_end', True)
+    subgraphs = [g.subgraph(c) for c in nx.connected_components(g)]
+    sgs = [sg for sg in subgraphs if len(sg) > min_community_size]
+
+    # 6 add community labels
+    communities = dict()
+    for i in range(len(sgs)):
+        communities[str(i).zfill(2)] = list(
+            nx.get_edge_attributes(sgs[i], 'roads_id').values())
+    communities_key = {
+        value: key
+        for key, value_list in communities.items() for value in value_list
+    }
+    df3['community'] = df3.roads_id.apply(
+        lambda x: communities_key.get(x, None))
+
+    return df3
 
 def square_plot(x, y, radius, db, cmap='Paired', alpha=0.2):
     
@@ -53,7 +131,19 @@ def square_plot(x, y, radius, db, cmap='Paired', alpha=0.2):
     boundary.plot(ax=ax, color='k', linewidth=5)
     ax.set_axis_off()
     return ax, [roads, buildings, properties, boundary, tiles]
-    
+
+def nn_translator(db, table, polygon, max_distance):
+    nearest_nodes = db.knn('nodes','nodes',polygon,
+                           k=100,max_distance=max_distance)
+
+    col_names = list(nearest_nodes.columns)
+    col_names[0], col_names[2] = 'first', 'second'
+    nearest_nodes.columns = col_names
+
+    g = nx.from_pandas_edgelist(nearest_nodes,'first','second',True)
+    subgraphs = [g.subgraph(c) for c in nx.connected_components(g)]
+    translator = {n: list(g.nodes)[0] for g in subgraphs for n in g.nodes}
+    return translator
 
 class Neighbourhood:
     '''
