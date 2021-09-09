@@ -27,14 +27,16 @@ def cellularize(pts_geoseries, polygon):
     points = np.array([[p.x, p.y] for p in pts_geoseries])
 
     vor = Voronoi(points)
-    lines = [LineString(vor.vertices[line]) for line in vor.ridge_vertices]
+    lines = [LineString(vor.vertices[line]) for line in vor.ridge_vertices if -1 not in line]
 
     lines_gdf = gpd.GeoDataFrame(geometry=gpd.GeoSeries(lines))
-    lines_gdf.geometry = lines_gdf.geometry.apply(lambda x: MultiLineString([
-        line for line in list(split(x, polygon.boundary))
-        if polygon.buffer(1).contains(line)
-    ]))
+#     lines_gdf.geometry = lines_gdf.geometry.apply(lambda x: MultiLineString([
+#         line for line in list(split(x, polygon.boundary))
+#         if polygon.buffer(1).contains(line)
+#     ]))
+    lines_gdf.geometry = lines_gdf.geometry.apply(lambda x: trim(x, polygon))
     boundary_gdf = gpd.GeoDataFrame(geometry=gpd.GeoSeries(polygon.boundary))
+    
     cells_gdf = tessellate([boundary_gdf, lines_gdf])
 
     return cells_gdf
