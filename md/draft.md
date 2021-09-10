@@ -21,12 +21,39 @@ question [@SRussellNorvig2016; SOpenshawOpenshaw1977]. In a powerful
 feedback loop, the more complex our contemporary social context becomes,
 the more necessary become those tools which enable informed
 decision-making amid an unprecedented deluge of (potentially) relevant
-data [@RKitchin2014]. Thus
+data [@RKitchin2014]. As the global population approaches ten
+billion -- ten times the number which so concerned @TMalthus1798 ! --
+one thing that can therefore be said with reasonable certainty is that
+the significance of software will continue to increase
+[@MAndreessen2011].
 
-If we define a neighbourhood as a place where a set of people live,
-then we can say, as a trivial logical corollary, that everyone lives in
-a neighbourhood. The ubiquitous relevance of such a term thus provides
-strong motivation for pursuing its study 
+Yet while human culture is forced to accelerate at the pace of
+an agile software development sprint [@JShoreChromatic2007], human
+biology remains essentially the same as it has been since prehistoric
+times. On the one hand, the Internet has made it possible for the larger
+part of the global population to form a single virtual networked
+community [@HYangEtAl2021] of which the value arguably scales like
+$O(n^2)$, as suggestedy by Metcalfe's Law [@XZhangEtAl2015;
+@TPeterson2018]. On the other hand, we remain physical creatures
+constrained by geographical location; and instead of an eschatological
+'end of geography', technology has instead amplified the significance of
+geospatially situated place [@SGraham1998].
+
+And of all the significant types of place which we might want to
+understand, the *neighbourhood* one of the most important. If we define
+a neighbourhood as a place where a set of people live, then we can say,
+as a trivial logical corollary, that everyone lives in a neighbourhood.
+The ubiquitous relevance of such a term thus provides strong motivation
+for pursuing its study. The application of machine learning to the field
+of neighbourhood research is known as *geodemographics*
+[@RHarrisEtAl2005; @RWebberBurrows2018]. 
+
+In this paper we survey the historical development of geodemographics,
+and show that although it has been seen widespread adoption as a
+technique, there remain unresolved questions concerning its primary
+object, the neighbourhood unit [@APetrovicEtAl2020]. Rather than
+reflecting a meaningful theoretically-grounded understanding of
+neighbourhood ontology and  
 
 # Literature Review
 
