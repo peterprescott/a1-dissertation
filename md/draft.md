@@ -48,12 +48,24 @@ for pursuing its study. The application of machine learning to the field
 of neighbourhood research is known as *geodemographics*
 [@RHarrisEtAl2005; @RWebberBurrows2018]. 
 
-In this paper we survey the historical development of geodemographics,
-and show that although it has been seen widespread adoption as a
+However, although it has been seen widespread adoption as a
 technique, there remain unresolved questions concerning its primary
 object, the neighbourhood unit [@APetrovicEtAl2020]. Rather than
 reflecting a meaningful theoretically-grounded understanding of
-neighbourhood ontology and  
+neighbourhood ontology, the units of geodemographic analysis are too
+often defined merely by data availability; or at a deeper level, by the
+administrative pragmatism and historical contigency responsible for
+defining the boundaries of data collection units. As well as this
+ontological critique, geodemographic analysis has also been the subject
+of ethical critique, in which it has been portrayed as a prime example
+[JGoss1995; @CDaltonThatcher2015] of what has since been described as
+*surveillance capitalism* [@SZuboff2015; -@SZuboff2019].
+
+The aim of this paper is therefore to establish a more robust foundation
+for geodemographic analysis, by attempting to identify a theoretically
+rigorous unit of neighbourhood analysis (thus addressing the ontological
+critique), and to do so using open data and open-source software (thus
+addressing the ethical critique).
 
 # Literature Review
 
