@@ -12,7 +12,7 @@ abstract: "Abstract..."
 
 We are still only in the early days of a digital revolution that has
 already begun to transform every aspect of human life, and will
-continue to do so in ways that can hardly be imagined, let alone
+continue to do so in ways that can hardly yet be imagined, let alone
 quantifiably predicted [@MBatty2021].  Paradoxically, one of the most
 powerful drivers of this general trend of unpredictable change is the
 increasing power of sophisticated algorithmic technologies to extract
@@ -47,6 +47,7 @@ The ubiquitous relevance of such a term thus provides strong motivation
 for pursuing its study. The application of machine learning to the field
 of neighbourhood research is known as *geodemographics*
 [@RHarrisEtAl2005; @RWebberBurrows2018].
+
 
 ![An Example of Geodemographic Visualization:\newline Choropleth Map showing
 2011 Open Area Classification, after @CDRC2021](../fig/CDRC_OAC2011.png){#fig:oac_fig}
@@ -165,6 +166,8 @@ development of quantitative social area analysis and subsequent
 factorial ecology [pp.39-40], paving the way for the emergence of
 geodemographic products [p.55].
 
+![The Chicago Concentric Zone Diagram, after @EBurgess1925](../fig/EBurgess1925.png){#fig:BurgessDiagrams}
+
 While Robbin coined the term 'geodemographics' and successfully turned
 it into a profitable commercial product, his impact on the academic
 understanding of neighbourhoods was quite limited. He dropped out of his
@@ -204,22 +207,23 @@ of the applications that have been suggested" (p.438). Webber apparently
 was apparently unaware of the first critique, but the second quickly 
 provoked a thorough rebuttal, in which @RWebber1980 concluded that the
 critics were not "in touch with either public policy or the commercial
-world" (p.449).  
-
-Presumably, the point was well taken, as @SOpenshaw1985
+world" (p.449). Presumably, the point was well taken, as @SOpenshaw1985
 then applied census-data cluster classification to rural areas,
 complaining of the resistance of government departments to such methods,
 and of their "preference for old fashioned pre-computer age techniques"
-(p.286). @SOpenshaw1997 then found himself in another notable
-controversy concerning geodemographics, this time offering a defense,
-when he offered a widely-ranging response to the various criticisms of
+(p.286). 
+
+@SOpenshaw1997 then found himself in another notable controversy
+concerning geodemographics, this time offering a defense, when he
+offered a widely-ranging response to the various criticisms of
 Geographic Information Systems gathered by @JPickles1995. The point
 which stands out as having the most continued validity in his discussion
 is his suggestion that "data protection legislation" can mitigate some
-of the dangers of unfettered technological surveillance. Robust data
-protection legislation does now exist [@GDPR2016]. 
+of the dangers of unfettered technological surveillance, foreseeing the
+need for the sort of data protection legislation now established by
+statutes such as @GDPR2016.  
 
-In our contemporary context, @SGilbert2021 offers a more relevant
+In our contemporary context, @SGilbert2021 offers another helpful
 response to the suggestion that gathering and profiting from people's
 data is a sort of exploitative 'data colonialism' [@JThatcherEtAl2016],
 in which an intrinsically valuable resource is being unfairly extracted.
@@ -228,7 +232,7 @@ describes himself as a 'data optimist', suggests that a better metaphor
 for big data would in fact be 'the new manure': "a mundane by-product of
 life" [p.36], which, like manure that is processed into fertiliser, only
 has economic value because there are businesses that have invested in
-processing it into something useful. 
+processing it into something useful.  
 
 We cannot in this paper attempt a comprehensive evaluation of Gilbert's
 attempt to defend big data analytics and develop a positive account of
@@ -237,8 +241,26 @@ will suffice to note that on the one hand, a positive argument can be
 made for it, while on the other hand, to whatever extent the negative
 assessment is considered valid, the development of free and open
 alternatives would seem to be a necessary strategy of resistance
-[@DSwanlundSchuurman2019].
+[@DSwanlundSchuurman2019].  But regarding the ontological question of
+how to define a neighbourhood, more must be said.
 
+One possible response to the question would be to suggest that in fact
+the problem of neighbourhood definition is nothing more than a
+particular instance of the the more general *Modifiable Areal Unit
+Problem*, described with typical clarity by @SOpenshaw1983, but in fact
+identified fifty years previously by @CGehlkeBiehl1934. The problem is a
+profound one for quantitative analysis involving spatial data, for it
+observes that the same basic dataset can yield quite different
+statistical results depending on the specific ways that its spatial data
+has been aggregated. The effect is found not only when data is gathered
+at different scales, but even when it is aggregated at the same scale
+with differing boundaries. A contemporary example is shown in @Fig:covid_maup,
+in which @ASingletonCheshire2021 demonstrate how, depending on the size
+of the population of the areal unit used for analysis, COVID-19 rates
+can appear "as low as 295 per 100,000 people or as high as 736 per
+100,000". 
+
+![Demonstrating the Modifiable Areal Unit Problem with COVID-19 Rates, after @ASingletonCheshire2021](../fig/covid_maup.png){#fig:covid_maup}
 
 
 
