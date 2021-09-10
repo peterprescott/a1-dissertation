@@ -193,31 +193,32 @@ and of their "preference for old fashioned pre-computer age techniques"
 (p.286). @SOpenshaw1997 then found himself in another notable
 controversy concerning geodemographics, this time offering a defense,
 when he offered a widely-ranging response to the various criticisms of
-Geographic Information Systems gathered by @JPickles1995. Specifically,
-Openshaw responded to the portrayal given by @JCrampton1995 and
-@JGoss1995 of geodemographics as a terrifying tool of mass surveillance,
-able to manipulate and control customer behaviour. Some of Openshaw's
-arguments have become less persuasive with time, such as his suggestion
-that a comprehensive customer database need not be feared since it "does
-not yet exist". Concerns which seemed disproportionate and even absurd
-in the early years of Internet usage -- Amazon.com was only launched in
-July 1995 [@JChevalierGoolsbee2003] -- now seem much more relevant, and
-altogether more plausible. The point which stands out as having the most
-continued validity in his discussion is his suggestion that "data
-protection legislation" can mitigate some of the dangers of unfettered
-technological surveillance. Robust data protection legislation does now
-exist [@GDPR2016], but indeed, the geodemographics giant Experian has
-been found to be in breach [@ICO2020c]. 
+Geographic Information Systems gathered by @JPickles1995. The point
+which stands out as having the most continued validity in his discussion
+is his suggestion that "data protection legislation" can mitigate some
+of the dangers of unfettered technological surveillance. Robust data
+protection legislation does now exist [@GDPR2016]. 
 
-In our contemporary context, @SGilbert2021 offers a more helpful
+In our contemporary context, @SGilbert2021 offers a more relevant
 response to the suggestion that gathering and profiting from people's
 data is a sort of exploitative 'data colonialism' [@JThatcherEtAl2016],
 in which an intrinsically valuable resource is being unfairly extracted.
-Rather than being 'the new oil', Gilbert suggests that a better metaphor
+Rather than being 'the new oil' [@MSzczepanski2020], Gilbert, whose
+describes himself as a 'data optimist', suggests that a better metaphor
 for big data would in fact be 'the new manure': "a mundane by-product of
-life", which, like manure that is processed into fertiliser, only has
-economic value because there are businesses that have invested in
+life" [p.36], which, like manure that is processed into fertiliser, only
+has economic value because there are businesses that have invested in
 processing it into something useful. 
+
+We cannot in this paper attempt a comprehensive evaluation of Gilbert's
+attempt to defend big data analytics and develop a positive account of
+*digital legitimacy* [@AGreeneGilbert2020]. For our present purposes it
+will suffice to note that on the one hand, a positive argument can be
+made for it, while on the other hand, to whatever extent the negative
+assessment is considered valid, the development of free and open
+alternatives would seem to be a necessary strategy of resistance
+[@DSwanlundSchuurman2019].
+
 
 
 
