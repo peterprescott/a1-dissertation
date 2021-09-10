@@ -46,7 +46,27 @@ as a trivial logical corollary, that everyone lives in a neighbourhood.
 The ubiquitous relevance of such a term thus provides strong motivation
 for pursuing its study. The application of machine learning to the field
 of neighbourhood research is known as *geodemographics*
-[@RHarrisEtAl2005; @RWebberBurrows2018]. 
+[@RHarrisEtAl2005; @RWebberBurrows2018].
+
+![An Example of Geodemographic Visualization:\newline Choropleth Map showing
+2011 Open Area Classification, after @CDRC2021](../fig/CDRC_OAC2011.png){#fig:oac_fig}
+
+
+```{.table caption="An Example of Geodemographic Cluster Description:\newline Groups and Subgroups from the 2011 OAC, created by @CGaleEtAl2016 {#tbl:oac_tbl}"
+source="../csv/oac2011_.csv"}
+```
+
+Geodemographic analysis applies unsupervised cluster analysis to the
+demographic data associated with geographic areas, thus enabling the
+reduction of the complex multidimensional reality of human society to a
+more manageable number of statistical types. Having been identified
+algorithmically, these statistical clusters can then be described
+qualitatively (@Tbl:oac_tbl) and presented visually (@Fig:oac_fig),
+creating products that have been used with great success for
+highlighting communities for service delivery, both in commercial
+marketing [@BLeventhal2016a] and in the public sector [@PLongley2005].
+The specific example shown is the 2011 Open Area Classification created
+by @CGaleEtAl2016, and visualized by @OOBrienCheshire2016.
 
 However, although it has been seen widespread adoption as a
 technique, there remain unresolved questions concerning its primary
@@ -67,9 +87,9 @@ encroaching geosurveillance [@DSwanlundSchuurman2019].
 
 The aim of this paper is therefore to establish a more robust foundation
 for geodemographic analysis, by attempting to identify a theoretically
-rigorous unit of neighbourhood analysis (thus addressing the ontological
-critique), and to do so using open data and open-source software (thus
-resisting the ethical critique).
+rigorous unit of neighbourhood analysis, thus addressing the ontological
+critique; and to do so using open data and open-source software, thus
+resisting the ethical critique.
 
 # Literature Review
 
