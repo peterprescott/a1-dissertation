@@ -17,18 +17,18 @@ quantifiably predicted [@MBatty2021].  Paradoxically, one of the most
 powerful drivers of this general trend of unpredictable change is the
 increasing power of sophisticated algorithmic technologies to extract
 specific predictive insights concerning some sufficiently well-defined
-question [@SRussellNorvig2016; SOpenshawOpenshaw1977]. In a powerful
+question [@SRussellNorvig2016; @SOpenshawOpenshaw1977]. In a powerful
 feedback loop, the more complex our contemporary social context becomes,
 the more necessary become those tools which enable informed
 decision-making amid an unprecedented deluge of (potentially) relevant
 data [@RKitchin2014]. As the global population approaches ten
-billion -- ten times the number which so concerned @TMalthus1798 ! --
+billion -- ten times what it was in the time of @TMalthus1798 --
 one thing that can therefore be said with reasonable certainty is that
 the significance of software will continue to increase
 [@MAndreessen2011].
 
 Yet while human culture is forced to accelerate at the pace of
-an agile software development sprint [@JShoreChromatic2007], human
+an agile software development sprint [@JShoreWarden2007], human
 biology remains essentially the same as it has been since prehistoric
 times. On the one hand, the Internet has made it possible for the larger
 part of the global population to form a single virtual networked
@@ -58,7 +58,7 @@ administrative pragmatism and historical contigency responsible for
 defining the boundaries of data collection units. As well as this
 ontological critique, geodemographic analysis has also been the subject
 of ethical critique, in which it has been portrayed as a prime example
-[JGoss1995; @CDaltonThatcher2015] of what has since been described as
+[@JGoss1995; @CDaltonThatcher2015] of what has since been described as
 *surveillance capitalism* [@SZuboff2015; -@SZuboff2019].
 
 The aim of this paper is therefore to establish a more robust foundation
@@ -173,6 +173,11 @@ the individual level" (p.118). @SOpenshawEtAl1980 repeated the warning
 "for all users to be aware of the practical limitations of [Webber's
 subsequent national] Classifications... [as] they are unsuitable or many
 of the applications that have been suggested" (p.438).
+
+
+```{.table caption="Levels of Relational Availability, [after @RGrannis2009] {#tbl:relational}"
+source="../csv/neighbouring.csv"}
+```
 
 # Methods
 
