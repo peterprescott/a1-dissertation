@@ -59,13 +59,17 @@ defining the boundaries of data collection units. As well as this
 ontological critique, geodemographic analysis has also been the subject
 of ethical critique, in which it has been portrayed as a prime example
 [@JGoss1995; @CDaltonThatcher2015] of what has since been described as
-*surveillance capitalism* [@SZuboff2015; -@SZuboff2019].
+*surveillance capitalism* [@SZuboff2015; -@SZuboff2019]. But while this
+may apply to proprietary systems, the criticism cannot be reasonably
+applied to open-source geodemographic analysis -- indeed, developing
+such alternatives is arguably a necessary strategy for resisting
+encroaching geosurveillance [@DSwanlundSchuurman2019].
 
 The aim of this paper is therefore to establish a more robust foundation
 for geodemographic analysis, by attempting to identify a theoretically
 rigorous unit of neighbourhood analysis (thus addressing the ontological
 critique), and to do so using open data and open-source software (thus
-addressing the ethical critique).
+resisting the ethical critique).
 
 # Literature Review
 
@@ -106,11 +110,15 @@ datapoints in the same segment can be considered as being of the same
 *type*.
 
 @RTryon1968 achieved a more sophisticated way of grouping census tract
-datapoints, showing how *cluster analysis* [@RTryon1939] could identify
-'clusters' of similar datapoints, avoiding the arbitrariness of simply
-segmenting the attribute space by intervals. Instead these could be
-detected by an iterative computational algorithm, made available in
-reproducible FORTRAN code [@RTryonBailey1966].
+datapoints, showing how his *cluster analysis* [@RTryon1939] could
+identify 'clusters' of similar datapoints, avoiding the arbitrariness of
+simply segmenting the attribute space by intervals. Instead these could
+be detected by an iterative computational algorithm, made available in
+reproducible FORTRAN code [@RTryonBailey1966]. From a contemporary
+perspective, cluster analysis is a primary example of unsupervised
+machine learning [@AGeron2019], thus making geodemographic analysis one
+of the first, and arguably even the original, application of
+unsupervised machine learning.
 
 While clustering census tracts provides a way of segmenting them into
 similar groups, the *ecological fallacy* [@WRobinson1950] means it does
@@ -172,7 +180,45 @@ study in particular, "should not be used until they can be replicated at
 the individual level" (p.118). @SOpenshawEtAl1980 repeated the warning
 "for all users to be aware of the practical limitations of [Webber's
 subsequent national] Classifications... [as] they are unsuitable or many
-of the applications that have been suggested" (p.438).
+of the applications that have been suggested" (p.438). Webber apparently
+was apparently unaware of the first critique, but the second quickly 
+provoked a thorough rebuttal, in which @RWebber1980 concluded that the
+critics were not "in touch with either public policy or the commercial
+world" (p.449).  
+
+Presumably, the point was well taken, as @SOpenshaw1985
+then applied census-data cluster classification to rural areas,
+complaining of the resistance of government departments to such methods,
+and of their "preference for old fashioned pre-computer age techniques"
+(p.286). @SOpenshaw1997 then found himself in another notable
+controversy concerning geodemographics, this time offering a defense,
+when he offered a widely-ranging response to the various criticisms of
+Geographic Information Systems gathered by @JPickles1995. Specifically,
+Openshaw responded to the portrayal given by @JCrampton1995 and
+@JGoss1995 of geodemographics as a terrifying tool of mass surveillance,
+able to manipulate and control customer behaviour. Some of Openshaw's
+arguments have become less persuasive with time, such as his suggestion
+that a comprehensive customer database need not be feared since it "does
+not yet exist". Concerns which seemed disproportionate and even absurd
+in the early years of Internet usage -- Amazon.com was only launched in
+July 1995 [@JChevalierGoolsbee2003] -- now seem much more relevant, and
+altogether more plausible. The point which stands out as having the most
+continued validity in his discussion is his suggestion that "data
+protection legislation" can mitigate some of the dangers of unfettered
+technological surveillance. Robust data protection legislation does now
+exist [@GDPR2016], but indeed, the geodemographics giant Experian has
+been found to be in breach [@ICO2020c]. 
+
+In our contemporary context, @SGilbert2021 offers a more helpful
+response to the suggestion that gathering and profiting from people's
+data is a sort of exploitative 'data colonialism' [@JThatcherEtAl2016],
+in which an intrinsically valuable resource is being unfairly extracted.
+Rather than being 'the new oil', Gilbert suggests that a better metaphor
+for big data would in fact be 'the new manure': "a mundane by-product of
+life", which, like manure that is processed into fertiliser, only has
+economic value because there are businesses that have invested in
+processing it into something useful. 
+
 
 
 ```{.table caption="Levels of Relational Availability, [after @RGrannis2009] {#tbl:relational}"
