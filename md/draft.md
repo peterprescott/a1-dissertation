@@ -2,7 +2,11 @@
 title: |
   | Defining a Micro-Geodemographic *Natural Area*
   | with Street-Network Topology
-subtitle: "A Proposed Solution to the Problem of Modifiable Areal Neighbourhood Units"
+subtitle: |
+  |
+  | An Exploration of the Ontological Problem
+  | of Modifiable Areal Neighbourhood Units
+
 author: Peter Prescott
 abstract: "Abstract..."
 
@@ -207,7 +211,7 @@ the individual level" (p.118). @SOpenshawEtAl1980 repeated the warning
 subsequent national] Classifications... [as] they are unsuitable or many
 of the applications that have been suggested" (p.438). Webber apparently
 was apparently unaware of the first critique, but the second quickly 
-provoked a thorough rebuttal, in which @RWebber1980 concluded that the
+provoked a thorough rebuttal, in which @RWebber1980 concluded that his 
 critics were not "in touch with either public policy or the commercial
 world" (p.449). Presumably, the point was well taken, as @SOpenshaw1985
 then applied census-data cluster classification to rural areas,
@@ -369,9 +373,9 @@ the dwellings that front on the same street and are situated between the
 first cross streets, of any type, encountered in both directions away
 from the respondent's house".
 
-The face-block is of particular interest to us, because it offers a unit
-of analysis that is primary from both the perspectives necessary to a
-robust neighbourhood ontology, both that of physical structure and of
+The face-block is of particular interest, because it offers a unit
+of analysis that is primary from both perspectives necessary to a
+robust neighbourhood ontology, both those of physical structure and of
 cognitive mapping. In the last decade the explosion of ubiquitous urban
 data [@DArribas-Bel2014] has catalyzed significant advances in the
 morphological analysis of urban physical structure, with the studies of
@@ -387,9 +391,20 @@ for London suggests one possible direction of enquiry. But if we can
 show more generally that there are strong theoretical reasons for the
 significance of the face-block, then we can use the analytic tools
 already developed for morphological analysis and claim them for more
-social cognitive investigation as well.
+social investigation as well.
 
-@RGrannis2009 
+At a larger level, it is well-established that the structural features
+of major roads, railway lines and rivers -- @JJacobs1961 refers to them
+as *border vacuums* -- are also perceived as social boundaries.
+@EBurgess1925 acknowledges that his simplified theory of urban economic
+expansion is complicated "by the lake front, the Chicago River, railroad
+lines, [and] historical factors in the location of industry" (p.52), and
+these complications are shown on Chart II of his well-known Concentric
+Zone Diagram (@Fig:BurgessDiagrams). But @RGrannis2009 demonstrates that
+while major roads (and railways, rivers, etc.) naturally *divide* urban 
+areas, for households within such a bounded area to be accessible to
+each other the 
+ 
 
 
 ```{.table caption="Levels of Relational Availability, [after @RGrannis2009] {#tbl:relational}"
