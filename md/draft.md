@@ -337,52 +337,72 @@ area', so fundamental to human ecology, has not as yet been consistently
 defined and logically classified... [and] no amount of empirical
 investigation can rectify the inconsistencies inherent in the
 theoretical statements pertaining to it" (p.240). Refusing to accept
-Alihan's damning verdict, @GSuttles1972 attempted "to resurrect the
+Alihan's damning verdict, @GSuttles1972 [p.21] attempted "to resurrect the
 concept... and show that it may still be usefully applied to urban
-areas" (p.21), noting the need to consider both the "physical structure
-of the city" (p.21), and "the cognitive map which residents have"
-(p.22).
+areas", noting the need to consider both the "physical structure
+of the city", and "the cognitive map which residents have".
 
-As an aside, we note with regard to this first point, that in the last
-decade the explosion of ubiquitous urban data [@DArribas-Bel2014] has
-catalyzed significant advances in the morphological analysis of urban
-physical structure, with the studies of @PSchirmerAxhausen2016,
-@GBoeing2019, -@GBoeing2020a, and @MFleischmannEtAl2020b of particular
-note. But with regard to the latter point of cognitive social maps,
-although the ideas have been well-established since the studies of 
-@PGouldWhite1974 and @KLynch1960, there remains more work to be done.
-
-Drawing from the ideas of animal *territoriality* developed by
-zoologists such as @MLipitz1969, @DMorris1967a, @GSuttles1972 suggests
+Drawing on the suggestion that we can draw analogies between human
+social behaviour and the ideas of animal *territoriality* developed by
+zoologists such as @MLipitz1969 and @DMorris1967a, @GSuttles1972 suggests
 that neighbourhood community "is best conceived of as a pyramid of
 progressively more inclusive groupings" (p.45), and identifies four
-relevant levels of analysis. At the smallest level, the *face-block* "is
-the smallest discrete areal unit other than the household which
-[residents] can point to" (p.56). Suttles takes for granted that his
-readers will understand what a 'face-block' is, but confuses matters
-somewhat by introducing the concept together with the loose local
-network of acquaintances selected "because they are known from shared
-conditions of residence" (p.55). In an otherwise excellent review of the
-literature, @RChaskin1997 incorrectly identifes Suttles' definitions of
-'local network' and 'face-block', and suggests that a face-block has no
-precise residential identification. But in fact Suttles notes that
-unlike the loose network which is "unlikely to have any sharp
-boundaries" (p.55), the face-block is notable specifically for having an
-areal basis so clear that parents are able to use it for instructing
-their children (p.56). For an explicitly articulated definition, we
-must turn to @RGrannis2009 (p.31), who explains (and consistently with
-Suttles' usage) that "the face block includes all of the dwellings that
-front on the same street and are situated between the first cross
-streets, of any type, encountered in both directions away from the
-respondent's house".
+relevant levels of analysis: the 'face-block', the 'defended
+neighbourhood', the 'community of limited liability', and the 'expanded
+community of limited liability'. At the smallest level, the
+*face-block* "is the smallest discrete areal unit other than the
+household which [residents] can point to" (p.56). Suttles takes for
+granted that his readers will understand what a 'face-block' is, but
+confuses matters somewhat by introducing the concept together with the
+loose local network of acquaintances selected "because they are known
+from shared conditions of residence" (p.55). In an otherwise excellent
+review of the literature, @RChaskin1997 incorrectly identifies Suttles'
+definitions of 'local network' and 'face-block', and suggests that a
+face-block has no precise residential identification. But in fact
+Suttles notes that unlike the loose network which is "unlikely to have
+any sharp boundaries" (p.55), the face-block is notable specifically for
+having an areal basis so clear that parents are able to use it for
+instructing their children (p.56). For an explicitly articulated
+definition, we must turn to @RGrannis2009 (p.31), who explains
+(consistently with Suttles' usage) that "the face block includes all of
+the dwellings that front on the same street and are situated between the
+first cross streets, of any type, encountered in both directions away
+from the respondent's house".
 
+The face-block is of particular interest to us, because it offers a unit
+of analysis that is primary from both the perspectives necessary to a
+robust neighbourhood ontology, both that of physical structure and of
+cognitive mapping. In the last decade the explosion of ubiquitous urban
+data [@DArribas-Bel2014] has catalyzed significant advances in the
+morphological analysis of urban physical structure, with the studies of
+@MBarthelemy2017, @RLoufBarthelemy2014, @PSchirmerAxhausen2016,
+@GBoeing2019 -@GBoeing2020a, and @MFleischmannEtAl2020b of particular
+note. But with regard to the latter point of cognitive social maps,
+although the essential ideas have been well-established since the
+studies of @PGouldWhite1974 and @KLynch1960, there remains more work to
+be done in integrating these concepts into large-scale analyses that
+take advantage of the detailed data now available. The attempt of
+@JLaiEtAl2020 to profile urban places based on geotagged Twitter data
+for London suggests one possible direction of enquiry. But if we can
+show more generally that there are strong theoretical reasons for the
+significance of the face-block, then we can use the analytic tools
+already developed for morphological analysis and claim them for more
+social cognitive investigation as well.
+
+@RGrannis2009 
 
 
 ```{.table caption="Levels of Relational Availability, [after @RGrannis2009] {#tbl:relational}"
 source="../csv/neighbouring.csv"}
 ```
 
-# Methods
+
+
+# Methodology
+
+## Computational Setup: Free Open-Source Software and Open Data
+
+## Data Exploration: Geography and Geometry
 
 ```{.table caption="GeoJSON Geometry Objects {#tbl:geojson}"
 source="../csv/geojson.csv"}
@@ -392,11 +412,15 @@ source="../csv/geojson.csv"}
 source="../csv/crs.csv"}
 ```
 
-
+## Conceptual Definition: Metric Spaces, Walkable Graphs, and Topological Neighbourhoods
 
 # Results
 
+## Boundary Units: Tiles, Pixels, and Cells
 
+## Neighbourhoods: Residential Face-Blocks and Connected Communities
+
+## Implementation: Embarrassing Parallelization
 
 # Discussion
 
