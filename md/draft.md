@@ -33,11 +33,11 @@ biology remains essentially the same as it has been since prehistoric
 times. On the one hand, the Internet has made it possible for the larger
 part of the global population to form a single virtual networked
 community [@HYangEtAl2021] of which the value arguably scales like
-$O(n^2)$, as suggestedy by Metcalfe's Law [@XZhangEtAl2015;
+$O(n^2)$, as suggested by Metcalfe's Law [@XZhangEtAl2015;
 @TPeterson2018]. On the other hand, we remain physical creatures
 constrained by geographical location; and instead of an eschatological
-'end of geography', technology has instead amplified the significance of
-geospatially situated place [@SGraham1998].
+*end of geography*, it seems that technology has instead amplified the
+significance of geospatially situated place [@SGraham1998].
 
 And of all the significant types of place which we might want to
 understand, the *neighbourhood* one of the most important. If we define
@@ -93,6 +93,8 @@ critique; and to do so using open data and open-source software, thus
 resisting the ethical critique.
 
 # Literature Review
+
+## 'Geodemographics': Development and Debate
 
 The word 'geodemographics' was coined by Jonathan @JRobbin1980 to
 describe the marketing tool his company had developed
@@ -244,6 +246,8 @@ alternatives would seem to be a necessary strategy of resistance
 [@DSwanlundSchuurman2019].  But regarding the ontological question of
 how to define a neighbourhood, more must be said.
 
+## Defining Neighbourhoods: Problems and Possibilities
+
 One possible response to the question would be to suggest that in fact
 the problem of neighbourhood definition is nothing more than a
 particular instance of the the more general *Modifiable Areal Unit
@@ -281,12 +285,13 @@ causally relevant geographic context" (p.959).
 
 For Kwan, this suggests a turn "from location to movement, from place to
 mobility, and from space to space-time" (p.966), and she suggests "using
-GPS data to delineate activity spaces (p.965) -- which is all very well,
-but beginning to stray from our own topic of geodemographic ontology.
-But nevertheless, the suggestion that for every spatial effect, there 
-must be *some* true causally relevant geographic context, rekindles the
-hope that even in considering a general typology of residential
-neighbourhoods, such a causual context might be found.
+GPS data to delineate activity spaces (p.965). This is all very well,
+but in heeding her suggestion we might perhaps stray too far from our
+own topic of geodemographic ontology.  But nevertheless, the suggestion
+that for every spatial effect, there must be *some* true causally
+relevant geographic context, rekindles the hope that even in considering
+a general typology of residential neighbourhoods, such a causual context
+might be found.
 
 What then are the causally relevant contextual elements that make a
 neighbourhood a neighbourhood? We find ourselves returning to the
@@ -315,13 +320,61 @@ social, economic and physical characteristics of the household's
 surrounding neighbourhood. Simultaneously, these neighbourhood
 characteristics are engaged in circular interaction with public and
 private service providers operating at a broader geographic scale. And
-all of this is happening within the context of the housing market.
+all of this occurs within the context of the regional housing market.
 
 ![Holistic, multilevel, circular causation model of neighbourhoods,
 after
 @GGalster2019](../fig/GGalster2019_NeighborhoodCausationModel.png){#fig:model}
 
+Galster grounds his model on the authority of @GSuttles1972, whose
+"groundbreaking observation that people are cognitive of four distinct
+spatial levels of neighbourhood" (p.39). At Suttles' time of writing,
+the 'natural area' concept of Park, Burgess, and the interwar Chicago
+School, had fallen thoroughly out of fashion. @MAlihan1938 had concluded
+that although "the ecological school [was] one of the most definite and
+influential schools in American sociology" (p.xi), "the concept 'natural
+area', so fundamental to human ecology, has not as yet been consistently
+defined and logically classified... [and] no amount of empirical
+investigation can rectify the inconsistencies inherent in the
+theoretical statements pertaining to it" (p.240). Refusing to accept
+Alihan's damning verdict, @GSuttles1972 attempted "to resurrect the
+concept... and show that it may still be usefully applied to urban
+areas" (p.21), noting the need to consider both the "physical structure
+of the city" (p.21), and "the cognitive map which residents have"
+(p.22).
 
+As an aside, we note with regard to this first point, that in the last
+decade the explosion of ubiquitous urban data [@DArribas-Bel2014] has
+catalyzed significant advances in the morphological analysis of urban
+physical structure, with the studies of @PSchirmerAxhausen2016,
+@GBoeing2019, -@GBoeing2020a, and @MFleischmannEtAl2020b of particular
+note. But with regard to the latter point of cognitive social maps,
+although the ideas have been well-established since the studies of 
+@PGouldWhite1974 and @KLynch1960, there remains more work to be done.
+
+Drawing from the ideas of animal *territoriality* developed by
+zoologists such as @MLipitz1969, @DMorris1967a, @GSuttles1972 suggests
+that neighbourhood community "is best conceived of as a pyramid of
+progressively more inclusive groupings" (p.45), and identifies four
+relevant levels of analysis. At the smallest level, the *face-block* "is
+the smallest discrete areal unit other than the household which
+[residents] can point to" (p.56). Suttles takes for granted that his
+readers will understand what a 'face-block' is, but confuses matters
+somewhat by introducing the concept together with the loose local
+network of acquaintances selected "because they are known from shared
+conditions of residence" (p.55). In an otherwise excellent review of the
+literature, @RChaskin1997 incorrectly identifes Suttles' definitions of
+'local network' and 'face-block', and suggests that a face-block has no
+precise residential identification. But in fact Suttles notes that
+unlike the loose network which is "unlikely to have any sharp
+boundaries" (p.55), the face-block is notable specifically for having an
+areal basis so clear that parents are able to use it for instructing
+their children (p.56). For an explicitly articulated definition, we
+must turn to @RGrannis2009 (p.31), who explains (and consistently with
+Suttles' usage) that "the face block includes all of the dwellings that
+front on the same street and are situated between the first cross
+streets, of any type, encountered in both directions away from the
+respondent's house".
 
 
 
