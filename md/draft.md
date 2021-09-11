@@ -247,7 +247,7 @@ how to define a neighbourhood, more must be said.
 One possible response to the question would be to suggest that in fact
 the problem of neighbourhood definition is nothing more than a
 particular instance of the the more general *Modifiable Areal Unit
-Problem*, described with typical clarity by @SOpenshaw1983, but in fact
+Problem* (MAUP), described with typical clarity by @SOpenshaw1983, but in fact
 identified fifty years previously by @CGehlkeBiehl1934. The problem is a
 profound one for quantitative analysis involving spatial data, for it
 observes that the same basic dataset can yield quite different
@@ -260,7 +260,68 @@ of the population of the areal unit used for analysis, COVID-19 rates
 can appear "as low as 295 per 100,000 people or as high as 736 per
 100,000". 
 
-![Demonstrating the Modifiable Areal Unit Problem with COVID-19 Rates, after @ASingletonCheshire2021](../fig/covid_maup.png){#fig:covid_maup}
+![Demonstrating the Modifiable Areal Unit Problem with COVID-19 Rates,
+after @ASingletonCheshire2021](../fig/covid_maup.png){#fig:covid_maup}
+
+A slightly different challenge to quantitative spatial analysis is the
+*Uncertain Geographic Context Problem* (UGCoP) described by @MKwan2012a.
+The MAUP is a problem of how to aggregate individual datapoints into
+collective units. It observes that different ways of aggregating
+spatially located datapoints into broader areal units may lead to
+different statistical conclusions, and therefore warns against treating
+any particular areal unit as authoritative. The UGCoP, however, points
+out that even when only considering a single social datapoint, that
+point is associated with a human individual who will have experienced
+exposure to relevant contextual influences in a variety of geographical
+contexts not limited to the point at which they live, or perhaps were
+interviewed, the details of which will in general be unknown to the 
+researcher. But rather than merely confounding the issue further, Kwan
+the problem in such a way as to suggest that there is in fact some "true
+causally relevant geographic context" (p.959).
+
+For Kwan, this suggests a turn "from location to movement, from place to
+mobility, and from space to space-time" (p.966), and she suggests "using
+GPS data to delineate activity spaces (p.965) -- which is all very well,
+but beginning to stray from our own topic of geodemographic ontology.
+But nevertheless, the suggestion that for every spatial effect, there 
+must be *some* true causally relevant geographic context, rekindles the
+hope that even in considering a general typology of residential
+neighbourhoods, such a causual context might be found.
+
+What then are the causally relevant contextual elements that make a
+neighbourhood a neighbourhood? We find ourselves returning to the
+observation made by @RPark1925 [p.1], that "there are forces at work...
+within the limits of any natural area of human habitation... which tend
+to bring about an orderly and typical grouping of its population and
+institutions". Does Park's claim still hold? And if so, with which "forces"
+should we be primarily concerned? Is it "the economic organization of the
+city... based on the division of labour" (p.2)? Or rather "racial,
+cultural and vocational interests" (p.11)? Or "the breaking down of
+local attachments and the weakening of the restraints and inhibitions of
+the primary [family] group, under the influence of the urban
+environment" (p.25)? Or it is indeed the economic expansion of the city,
+and the accompanying "tendency of each inner zone to extend its area by
+the invasion of the next outer zone" [@EBurgess1925 p.51;
+@Fig:BurgessDiagrams]? 
+
+An impressive case is made by @GGalster2019 that "to understand the
+causes and effects of neighborhoods one must embed them in a framework
+in which four spatial levels--metropolitan, local jurisdiction,
+neighbourhood, and individual--are interconnected in mutually causal
+ways" (@Fig:model). At the individual level, we have the mobility and
+investment behaviours of individual households, dwelling owners and
+developers.  These both influence and are influenced by the demographic,
+social, economic and physical characteristics of the household's
+surrounding neighbourhood. Simultaneously, these neighbourhood
+characteristics are engaged in circular interaction with public and
+private service providers operating at a broader geographic scale. And
+all of this is happening within the context of the housing market.
+
+![Holistic, multilevel, circular causation model of neighbourhoods,
+after
+@GGalster2019](../fig/GGalster2019_NeighborhoodCausationModel.png){#fig:model}
+
+
 
 
 
