@@ -47,11 +47,9 @@ And of all the significant types of place which we might want to
 understand, the *neighbourhood* one of the most important. If we define
 a neighbourhood as a place where a set of people live, then we can say,
 as a trivial logical corollary, that everyone lives in a neighbourhood.
-The ubiquitous relevance of such a term thus provides strong motivation
-for pursuing its study. The application of machine learning to the field
-of neighbourhood research is known as *geodemographics*
-[@RHarrisEtAl2005; @RWebberBurrows2018].
-
+In this paper we survey the history of how machine learning has been
+applied to the subject of neighbourhood research, a field known as 
+*geodemographics* [@RHarrisEtAl2005; @RWebberBurrows2018].
 
 ![An Example of Geodemographic Visualization:\newline Choropleth Map showing
 2011 Open Area Classification, after @CDRC2021](../fig/CDRC_OAC2011.png){#fig:oac_fig}
@@ -401,10 +399,11 @@ expansion is complicated "by the lake front, the Chicago River, railroad
 lines, [and] historical factors in the location of industry" (p.52), and
 these complications are shown on Chart II of his well-known Concentric
 Zone Diagram (@Fig:BurgessDiagrams). But @RGrannis2009 demonstrates that
-while major roads (and railways, rivers, etc.) naturally *divide* urban 
-areas, for households within such a bounded area to be accessible to
-each other the 
- 
+not only are neighbourhoods defined by the way that urban areas are
+*divided* by major roads (and railways, rivers, etc.), but that for the
+households within the same set of boundaries to be accessible to each
+other, they also need to be *connected* by walkable, residential
+streets.
 
 
 ```{.table caption="Levels of Relational Availability, [after @RGrannis2009] {#tbl:relational}"
@@ -429,7 +428,7 @@ source="../csv/crs.csv"}
 
 ## Conceptual Definition: Metric Spaces, Walkable Graphs, and Topological Neighbourhoods
 
-# Results
+# Data Analysis
 
 ## Boundary Units: Tiles, Pixels, and Cells
 
