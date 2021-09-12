@@ -2,10 +2,6 @@
 title: |
   | Defining a Micro-Geodemographic *Natural Area*
   | with Street-Network Topology
-subtitle: |
-  |
-  | An Exploration of the Ontological Problem
-  | of Modifiable Areal Neighbourhood Units
 
 author: Peter Prescott
 abstract: "Abstract..."
@@ -25,68 +21,64 @@ question [@SRussellNorvig2016; @SOpenshawOpenshaw1977]. In a powerful
 feedback loop, the more complex our contemporary social context becomes,
 the more necessary become those tools which enable informed
 decision-making amid an unprecedented deluge of (potentially) relevant
-data [@RKitchin2014]. As the global population approaches ten
-billion -- ten times what it was in the time of @TMalthus1798 --
-one thing that can therefore be said with reasonable certainty is that
-the significance of software will continue to increase
-[@MAndreessen2011].
+data [@RKitchin2014]. One such tool is *geodemographics*
+[@RHarrisEtAl2005; @RWebberBurrows2018].
 
-Yet while human culture is forced to accelerate at the pace of
-an agile software development sprint [@JShoreWarden2007], human
-biology remains essentially the same as it has been since prehistoric
-times. On the one hand, the Internet has made it possible for the larger
-part of the global population to form a single virtual networked
-community [@HYangEtAl2021] of which the value arguably scales like
-$O(n^2)$, as suggested by Metcalfe's Law [@XZhangEtAl2015;
-@TPeterson2018]. On the other hand, we remain physical creatures
-constrained by geographical location; and instead of an eschatological
-*end of geography*, it seems that technology has instead amplified the
-significance of geospatially situated place [@SGraham1998].
-
-And of all the significant types of place which we might want to
-understand, the *neighbourhood* one of the most important. If we define
-a neighbourhood as a place where a set of people live, then we can say,
-as a trivial logical corollary, that everyone lives in a neighbourhood.
-In this paper we survey the history of how machine learning has been
-applied to the subject of neighbourhood research, a field known as 
-*geodemographics* [@RHarrisEtAl2005; @RWebberBurrows2018].
+Geodemographic analysis applies unsupervised machine learning to the
+demographic data associated with geographic areas, thus enabling the
+reduction of the complex multidimensional reality of human society to a
+more manageable number of statistical types. Having been identified
+algorithmically, these *clusters* can then be described
+qualitatively (@Tbl:oac_tbl) and presented visually (@Fig:oac_fig),
+creating products that have been used with great success in fields
+ranging from direct marketing [@MEvans1998], retail location selection
+[@OGonzalez-BenitoGonzalez-Benito2005], political campaigning
+[@RWebber2006; @JRobbin1980], and military recruitment
+[@JDeReuRobbin1981], to social service resource allocation
+[@PLongley2005]: whether that service be in the field of health
+[@MFarrEtAl2008], education [@ASingletonLongley2009c], or policing
+[@DAshbyLongley2005].
 
 ![An Example of Geodemographic Visualization:\newline Choropleth Map showing
 2011 Open Area Classification, after @CDRC2021](../fig/CDRC_OAC2011.png){#fig:oac_fig}
 
+However, although it has been seen widespread adoption as a technique,
+there remain unresolved questions concerning its primary object, the
+neighbourhood unit [@APetrovicEtAl2020]. Rather than reflecting a
+meaningful theoretically-grounded understanding of neighbourhood
+ontology, the units of geodemographic analysis are too often defined
+merely by data availability; or at a deeper level, by the administrative
+pragmatism and historical contigency responsible for defining the
+boundaries of data collection units. 
+
+To give credit where it is due, work such as that of @DMartinEtAl2001,
+which used a microsimulation approach to design census output zones
+maximizing social homogeneity, demonstrates that administrative data
+collection units do sometimes reflect a high level of sophistication.
+But perhaps here the problem is in fact presented even more starkly, for
+from a *statistical* point of view, it makes sense to design
+neighbourhood zones in such a way as to maximize social homogeneity.
+From a *social* point of view however, such homogeneity is essentially
+*segregation*, and while as scholars we may be content merely to
+understand its causes [e.g. @TSchelling1969] rather than to resist it
+more directly [e.g. @MKing1968], it becomes impossible to say much about
+whether and why neighbourhoods are not diverse or not, if our only way
+of defining them is in such terms.
 
 ```{.table caption="An Example of Geodemographic Cluster Description:\newline Groups and Subgroups from the 2011 OAC, created by @CGaleEtAl2016 {#tbl:oac_tbl}"
 source="../csv/oac2011_.csv"}
 ```
 
-Geodemographic analysis applies unsupervised cluster analysis to the
-demographic data associated with geographic areas, thus enabling the
-reduction of the complex multidimensional reality of human society to a
-more manageable number of statistical types. Having been identified
-algorithmically, these statistical clusters can then be described
-qualitatively (@Tbl:oac_tbl) and presented visually (@Fig:oac_fig),
-creating products that have been used with great success for
-highlighting communities for service delivery, both in commercial
-marketing [@BLeventhal2016a] and in the public sector [@PLongley2005].
-The specific example shown is the 2011 Open Area Classification created
-by @CGaleEtAl2016, and visualized by @OOBrienCheshire2016.
-
-However, although it has been seen widespread adoption as a
-technique, there remain unresolved questions concerning its primary
-object, the neighbourhood unit [@APetrovicEtAl2020]. Rather than
-reflecting a meaningful theoretically-grounded understanding of
-neighbourhood ontology, the units of geodemographic analysis are too
-often defined merely by data availability; or at a deeper level, by the
-administrative pragmatism and historical contigency responsible for
-defining the boundaries of data collection units. As well as this
-ontological critique, geodemographic analysis has also been the subject
-of ethical critique, in which it has been portrayed as a prime example
-[@JGoss1995; @CDaltonThatcher2015] of what has since been described as
-*surveillance capitalism* [@SZuboff2015; -@SZuboff2019]. But while this
-may apply to proprietary systems, the criticism cannot be reasonably
-applied to open-source geodemographic analysis -- indeed, developing
-such alternatives is arguably a necessary strategy for resisting
-encroaching geosurveillance [@DSwanlundSchuurman2019].
+As well as this ontological critique, geodemographic analysis has also
+been the subject of ethical critique, in which it has been portrayed as
+a prime example [@JGoss1995; @CDaltonThatcher2015] of what has since
+been described as *surveillance capitalism* [@SZuboff2015;
+-@SZuboff2019]. But while this may apply to proprietary systems, the
+criticism cannot be reasonably applied to open-source geodemographic
+analysis -- indeed, to whatever degree one might be worried about the
+possibility of encroaching corporate *geosurveillance*, developing free
+and open alternatives to proprietary products is arguably a necessary
+strategy of resistance [@DSwanlundSchuurman2019].
 
 The aim of this paper is therefore to establish a more robust foundation
 for geodemographic analysis, by attempting to identify a theoretically
@@ -142,8 +134,8 @@ be detected by an iterative computational algorithm, made available in
 reproducible FORTRAN code [@RTryonBailey1966]. From a contemporary
 perspective, cluster analysis is a primary example of unsupervised
 machine learning [@AGeron2019], thus making geodemographic analysis one
-of the first, and arguably even the original, application of
-unsupervised machine learning.
+of the first, and arguably even the original, example of its
+application.
 
 While clustering census tracts provides a way of segmenting them into
 similar groups, the *ecological fallacy* [@WRobinson1950] means it does
@@ -231,7 +223,7 @@ In our contemporary context, @SGilbert2021 offers another helpful
 response to the suggestion that gathering and profiting from people's
 data is a sort of exploitative 'data colonialism' [@JThatcherEtAl2016],
 in which an intrinsically valuable resource is being unfairly extracted.
-Rather than being 'the new oil' [@MSzczepanski2020], Gilbert, whose
+Rather than being 'the new oil' [e.g. @MSzczepanski2020], Gilbert, whose
 describes himself as a 'data optimist', suggests that a better metaphor
 for big data would in fact be 'the new manure': "a mundane by-product of
 life" [p.36], which, like manure that is processed into fertiliser, only
@@ -253,18 +245,18 @@ how to define a neighbourhood, more must be said.
 One possible response to the question would be to suggest that in fact
 the problem of neighbourhood definition is nothing more than a
 particular instance of the the more general *Modifiable Areal Unit
-Problem* (MAUP), described with typical clarity by @SOpenshaw1983, but in fact
-identified fifty years previously by @CGehlkeBiehl1934. The problem is a
-profound one for quantitative analysis involving spatial data, for it
-observes that the same basic dataset can yield quite different
-statistical results depending on the specific ways that its spatial data
-has been aggregated. The effect is found not only when data is gathered
-at different scales, but even when it is aggregated at the same scale
-with differing boundaries. A contemporary example is shown in @Fig:covid_maup,
-in which @ASingletonCheshire2021 demonstrate how, depending on the size
-of the population of the areal unit used for analysis, COVID-19 rates
-can appear "as low as 295 per 100,000 people or as high as 736 per
-100,000". 
+Problem* (MAUP), described with typical clarity by @SOpenshaw1983, but
+in fact identified fifty years previously by @CGehlkeBiehl1934. The
+problem is a profound one for quantitative analysis involving spatial
+data, for it observes that the same basic dataset can yield quite
+different statistical results depending on the specific ways that its
+data has been aggregated. The effect is found not only when data
+is gathered at different scales, but even when it is aggregated at the
+same scale with differing boundaries. A contemporary example is shown in
+@Fig:covid_maup, in which @ASingletonCheshire2021 demonstrate how,
+depending on the size of the population of the areal unit used for
+analysis, COVID-19 rates can appear "as low as 295 per 100,000 people or
+as high as 736 per 100,000". 
 
 ![Demonstrating the Modifiable Areal Unit Problem with COVID-19 Rates,
 after @ASingletonCheshire2021](../fig/covid_maup.png){#fig:covid_maup}
@@ -282,33 +274,33 @@ exposure to relevant contextual influences in a variety of geographical
 contexts not limited to the point at which they live, or perhaps were
 interviewed, the details of which will in general be unknown to the 
 researcher. But rather than merely confounding the issue further, Kwan
-the problem in such a way as to suggest that there is in fact some "true
-causally relevant geographic context" (p.959).
+frames the problem in such a way as to suggest that there is in fact
+some "true causally relevant geographic context" (p.959).
 
 For Kwan, this suggests a turn "from location to movement, from place to
 mobility, and from space to space-time" (p.966), and she suggests "using
-GPS data to delineate activity spaces (p.965). This is all very well,
+GPS data to delineate activity spaces" (p.965). This is all very well,
 but in heeding her suggestion we might perhaps stray too far from our
 own topic of geodemographic ontology.  But nevertheless, the suggestion
 that for every spatial effect, there must be *some* true causally
 relevant geographic context, rekindles the hope that even in considering
-a general typology of residential neighbourhoods, such a causual context
-might be found.
+a general typology of residential neighbourhoods, such a context might
+be found.
 
 What then are the causally relevant contextual elements that make a
 neighbourhood a neighbourhood? We find ourselves returning to the
 observation made by @RPark1925 [p.1], that "there are forces at work...
 within the limits of any natural area of human habitation... which tend
 to bring about an orderly and typical grouping of its population and
-institutions". Does Park's claim still hold? And if so, with which "forces"
-should we be primarily concerned? Is it "the economic organization of the
-city... based on the division of labour" (p.2)? Or rather "racial,
-cultural and vocational interests" (p.11)? Or "the breaking down of
-local attachments and the weakening of the restraints and inhibitions of
-the primary [family] group, under the influence of the urban
-environment" (p.25)? Or it is indeed the economic expansion of the city,
-and the accompanying "tendency of each inner zone to extend its area by
-the invasion of the next outer zone" [@EBurgess1925 p.51;
+institutions". Does Park's claim still hold? And if so, with which
+"forces" should we be primarily concerned? Is it "the economic
+organization of the city... based on the division of labour" (p.2)? Or
+rather "racial, cultural and vocational interests" (p.11)? Or "the
+breaking down of local attachments and the weakening of the restraints
+and inhibitions of the primary [family] group, under the influence of
+the urban environment" (p.25)? Or it is the economic expansion of the
+city, and the accompanying "tendency of each inner zone to extend its
+area by the invasion of the next outer zone" [@EBurgess1925 p.51;
 @Fig:BurgessDiagrams]? 
 
 An impressive case is made by @GGalster2019 that "to understand the
@@ -328,48 +320,48 @@ all of this occurs within the context of the regional housing market.
 after
 @GGalster2019](../fig/GGalster2019_NeighborhoodCausationModel.png){#fig:model}
 
-Galster grounds his model on the authority of @GSuttles1972, whose
-"groundbreaking observation that people are cognitive of four distinct
-spatial levels of neighbourhood" (p.39). At Suttles' time of writing,
-the 'natural area' concept of Park, Burgess, and the interwar Chicago
-School, had fallen thoroughly out of fashion. @MAlihan1938 had concluded
-that although "the ecological school [was] one of the most definite and
-influential schools in American sociology" (p.xi), "the concept 'natural
-area', so fundamental to human ecology, has not as yet been consistently
-defined and logically classified... [and] no amount of empirical
-investigation can rectify the inconsistencies inherent in the
-theoretical statements pertaining to it" (p.240). Refusing to accept
-Alihan's damning verdict, @GSuttles1972 [p.21] attempted "to resurrect the
-concept... and show that it may still be usefully applied to urban
-areas", noting the need to consider both the "physical structure
-of the city", and "the cognitive map which residents have".
+Galster credits his multilevel model to the inspiration of
+@GSuttles1972, whose "groundbreaking observation that people are
+cognitive of four distinct spatial levels of neighbourhood" (p.39). At
+Suttles' time of writing, the 'natural area' concept of Park, Burgess,
+and the interwar Chicago School, had fallen thoroughly out of fashion.
+@MAlihan1938 had concluded that although "the ecological school [was]
+one of the most definite and influential schools in American sociology"
+(p.xi), "the concept 'natural area', so fundamental to human ecology,
+has not as yet been consistently defined and logically classified...
+[and] no amount of empirical investigation can rectify the
+inconsistencies inherent in the theoretical statements pertaining to it"
+(p.240). Refusing to accept Alihan's damning verdict, @GSuttles1972
+[p.21] attempted "to resurrect the concept... and show that it may still
+be usefully applied to urban areas", noting the need to consider both
+the "physical structure of the city", and "the cognitive map which
+residents have".
 
-Drawing on the suggestion that we can draw analogies between human
-social behaviour and the ideas of animal *territoriality* developed by
-zoologists such as @MLipitz1969 and @DMorris1967a, @GSuttles1972 suggests
-that neighbourhood community "is best conceived of as a pyramid of
-progressively more inclusive groupings" (p.45), and identifies four
+Drawing on the suggestion that there are analogies between human social
+behaviour and the ideas of animal *territoriality* developed by
+zoologists such as @MLipitz1969 and @DMorris1967a, @GSuttles1972
+suggests that neighbourhood community "is best conceived of as a pyramid
+of progressively more inclusive groupings" (p.45), and identifies four
 relevant levels of analysis: the 'face-block', the 'defended
 neighbourhood', the 'community of limited liability', and the 'expanded
-community of limited liability'. At the smallest level, the
-*face-block* "is the smallest discrete areal unit other than the
-household which [residents] can point to" (p.56). Suttles takes for
-granted that his readers will understand what a 'face-block' is, but
-confuses matters somewhat by introducing the concept together with the
-loose local network of acquaintances selected "because they are known
-from shared conditions of residence" (p.55). In an otherwise excellent
-review of the literature, @RChaskin1997 incorrectly identifies Suttles'
-definitions of 'local network' and 'face-block', and suggests that a
-face-block has no precise residential identification. But in fact
-Suttles notes that unlike the loose network which is "unlikely to have
-any sharp boundaries" (p.55), the face-block is notable specifically for
-having an areal basis so clear that parents are able to use it for
-instructing their children (p.56). For an explicitly articulated
-definition, we must turn to @RGrannis2009 (p.31), who explains
-(consistently with Suttles' usage) that "the face block includes all of
-the dwellings that front on the same street and are situated between the
-first cross streets, of any type, encountered in both directions away
-from the respondent's house".
+community of limited liability'. At the smallest level, the *face-block*
+"is the smallest discrete areal unit other than the household which
+[residents] can point to" (p.56). Suttles takes for granted that his
+readers will understand what a 'face-block' is, but confuses matters
+somewhat by introducing the concept together with the loose local
+network of acquaintances selected "because they are known from shared
+conditions of residence" (p.55). In an otherwise excellent review of the
+literature, @RChaskin1997 incorrectly identifies Suttles' definitions of
+'local network' and 'face-block', and suggests that a face-block has no
+precise residential identification. But in fact Suttles notes that
+unlike the loose network which is "unlikely to have any sharp
+boundaries" (p.55), the face-block is notable specifically for having an
+areal basis so clear that parents are able to use it for instructing
+their children (p.56). For an explicitly articulated definition, we must
+turn to @RGrannis2009 (p.31), who explains (consistently with Suttles'
+usage) that "the face block includes all of the dwellings that front on
+the same street and are situated between the first cross streets, of any
+type, encountered in both directions away from the respondent's house".
 
 The face-block is of particular interest, because it offers a unit
 of analysis that is primary from both perspectives necessary to a
@@ -402,15 +394,39 @@ Zone Diagram (@Fig:BurgessDiagrams). But @RGrannis2009 demonstrates that
 not only are neighbourhoods defined by the way that urban areas are
 *divided* by major roads (and railways, rivers, etc.), but that for the
 households within the same set of boundaries to be accessible to each
-other, they also need to be *connected* by walkable, residential
-streets.
+other, they also need to be *connected* by safe, walkable pedestrian streets 
+-- that is, by contiguous residential face-blocks.
 
+Grannis roots his argument in a simple account of how neighbouring
+relationships necessarily develop along a natural scale of relational
+availability (@Tbl:relational). At the lowest level (0), we have the
+situation where there is simply no availability at all -- and thus there
+is no neighbourly relationship. The most basic level (1) in actually being
+neighbours is geographical availability, for "proximity is essential to
+the very definition of neighbouring" (p.19). The next level (2) is achieved
+when passive contact takes place, as neighbours "unintentionally
+encounter each other on a regular basis". The relationship can then
+develop to involve intentional contact (level 3) and mutual trust (level
+4).
 
 ```{.table caption="Levels of Relational Availability, [after @RGrannis2009] {#tbl:relational}"
 source="../csv/neighbouring.csv"}
 ```
 
+He then suggests that these individual neighbourly relations concatenate
+to form networks corresponding to the relevant relational stages
+(pp.37-47). In particular, what becomes apparent is that to "transcend
+the network of geographic availability ... is logically impossible"
+(p.40). He thus concludes that "the maximal concatenation of contiguous
+face blocks... represents the maximal consolidation of individual
+residents' potential contact with each other" (p.42).
 
+We can supplement Grannis' theory of how contiguous walkable face-block 
+networks necessarily bound neighbourhood networks, with some of the
+insights of @JJacobs1961 about how a city's streets need to serve the
+vital social purposes of creating a natural place for public contact
+(pp.72-96), and of providing the "eyes upon the streets" (p.45) necessary
+to induce the social restraint which makes for public safety (pp.37-71).
 
 # Methodology
 
@@ -428,15 +444,39 @@ source="../csv/crs.csv"}
 
 ## Conceptual Definition: Metric Spaces, Walkable Graphs, and Topological Neighbourhoods
 
+
+A *graph* is an ordered tuple $G = (V,E)$, consisting of a set of
+*nodes* (or *vertices*) $V = \{v_{i}\}$, and a set of *edges* $E =
+\{e_{ij}\}$, where the edge $e_{i,j}$ is the ordered pair $(i,j)$
+representing some connection from the *source* $v_{i}$ to the *target*
+$v_{j}$. 
+
+Two nodes connected by an edge are said to be *adjacent* to each other.
+An edge $e_{ii}$ connecting a node $v_{i}$ to itself is called a *loop*;
+the node is then *self-adjacent*.
+
+A graph is *undirected* if $e_{ij} \iff e_{ji}$ -- otherwise it is
+*directed*. It is a *simple* graph if the edges are distinct and
+unrepeated -- otherwise it is a *multigraph*. 
+
+On an undirected graph, we call the number of edges connecting a node
+its *degree*. In a directed graph we distinguish between the *indegree*
+and *outdegree*.
+
+Given a graph G, we can describe a *walk* of length L as a sequence of
+adjacent (but not necessarily distinct) nodes $(v_{0},...,v_{L})$; or,
+equivalently, as a sequence of edges $e_{0,1},...,e_{L-1,L}$.
+Conversely, given a set of walks, we can construct the (minimal)
+underlying graph containing all the nodes and edges involved in the
+walks.
+
 # Data Analysis
 
 ## Boundary Units: Tiles, Pixels, and Cells
 
 ## Neighbourhoods: Residential Face-Blocks and Connected Communities
 
-## Implementation: Embarrassing Parallelization
-
-# Discussion
+## Implementation: Embarrassingly Parallel Neighbourhoods
 
 # Conclusion
 
