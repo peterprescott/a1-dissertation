@@ -615,7 +615,16 @@ walks.
 
 ## Neighbourhoods: Residential Face-Blocks and Connected Communities
 
+lorem ipsum...
+
+```{.table caption="Dummy Face-Block Stats {#tbl:block_stats}"
+source="../csv/block_stats.csv"}
+```
+
+
 ![Neighbourhoods of Connected Face-Blocks](../fig/neighbourhoods.png){#fig:nbhds}
+
+
 
 ## Implementation: Embarrassingly Parallel Neighbourhoods
 
