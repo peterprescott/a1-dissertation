@@ -552,7 +552,7 @@ inject the data from the downloaded GeoPackage directly into the
 database, the process became much quicker: shortening from over an hour,
 to just a few minutes.
 
-## Conceptual Definition: Metric Spaces, Topological Neighbourhoods, and Walkable Graphs
+## Conceptual Definition: (Geo)Metric Spaces, Walkable Graphs, Topological Neighbourhoods
 
 In order to analyze the propinquity of neighbours, we need to understand
 how to calculate the proximity of points.
@@ -574,31 +574,32 @@ easily extended to ${\mathbb R}^{n}$:
 
 $$\|{\mathbf x}\|_{2}=\left(\sum_{j=1}^{n}x_{j}^{2}\right)^{1/2}$$
 
+This is the metric that our analysis uses to calculate the distance
+between a property and its nearest street or building.
+
 Our earth is of course not a flat Euclidean plane but rather (very
-nearly) an oblate spheroid [@PMathewsShapiro1992]. However, since the 
-geographical positions of our data are given by reference to the British
-National Grid, and since the distances 
+nearly) an oblate spheroid [@PMathewsShapiro1992]. To calculate the
+distance between two points on the surface of a sphere, we should 
+calculate the *great-circle distance*, that is the distance along the
+shorter arc of the circle which cuts through both points and the centre
+of the sphere. For a spheroid, the formulae of @Vincenty1975 https://en.wikipedia.org/wiki/Vincenty%27s_formulae
+provide iterative methods for calculating the distance precisely.
+However, since the geographical positions of our data are given by
+reference to the British National Grid (@Tbl:crd), and since the distances we are
+here interested in are all small, we can ignore this fact. 
+
+```{.table caption="Some Coordinate Reference Systems {#tbl:crs}"
+source="../csv/crs.csv"}
+```
 
 
-We shall use this metric to calculate 
+
 
 A *graph* is an ordered tuple $G = (V,E)$, consisting of a set of
 *nodes* (or *vertices*) $V = \{v_{i}\}$, and a set of *edges* $E =
 \{e_{ij}\}$, where the edge $e_{i,j}$ is the ordered pair $(i,j)$
 representing some connection from the *source* $v_{i}$ to the *target*
 $v_{j}$. 
-
-Two nodes connected by an edge are said to be *adjacent* to each other.
-An edge $e_{ii}$ connecting a node $v_{i}$ to itself is called a *loop*;
-the node is then *self-adjacent*.
-
-A graph is *undirected* if $e_{ij} \iff e_{ji}$ -- otherwise it is
-*directed*. It is a *simple* graph if the edges are distinct and
-unrepeated -- otherwise it is a *multigraph*. 
-
-On an undirected graph, we call the number of edges connecting a node
-its *degree*. In a directed graph we distinguish between the *indegree*
-and *outdegree*.
 
 Given a graph G, we can describe a *walk* of length L as a sequence of
 adjacent (but not necessarily distinct) nodes $(v_{0},...,v_{L})$; or,
@@ -608,18 +609,11 @@ underlying graph containing all the nodes and edges involved in the
 walks.
 
 
-## Operational Paradigm: From GIS to Geographic Data Science
 
 
 
 ```{.table caption="GeoJSON Geometry Objects {#tbl:geojson}"
 source="../csv/geojson.csv"}
-```
-
-## Data Exploration: Geography and Geometry
-
-```{.table caption="Some Coordinate Reference Systems {#tbl:crs}"
-source="../csv/crs.csv"}
 ```
 
 # Data Analysis
