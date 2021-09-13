@@ -429,6 +429,101 @@ to induce the social restraint which makes for public safety (pp.37-71).
 
 # Methodology
 
+## Basic Idea: Defining Neighbourhood Units with Street Network Geometry
+
+The essential idea of this paper is to define neighbourhood units for
+the whole of Britain based on the street network, rather than the
+administrative boundaries generally used by geodemographic typologies. 
+Initially I had thought that it would be sufficient to perform a
+tessellation based on treating roads (and railways and rivers) as borders 
+which naturally divide neighbourhood areas (@Fig:t_vs_f, left). 
+
+![Visual Comparison between (left) Tessellated 'Blocks' divided by
+bordering streets,\newline and (right) natural Face-Blocks connected by nearest
+streets](../fig/tessellated_vs_faceblocks.png){#fig:t_vs_f}
+
+This is the approach taken by the Urban Grammar project of
+@MFleischmannArribas-Bel2021, which first generates tessellated
+'enclosures' and then subdivides them into Voronoi cells based on
+building footprint polygons, as described by @MFleischmannEtAl2020. It
+was very helpful to learn from the implementation of this method, shared
+openly on GitHub [@LDabbishEtAl2012] in reproducible Jupyter notebooks
+[@TKluyverEtAl2016; @BRandlesEtAl2017; @GBoeingArribas-Bel2021].
+
+However, in reviewing the literature, it became apparent that while
+certainly motorways and railways act as dividing boundaries of social
+space, residential streets perform the opposite role, connecting rather
+than dividing. My goal was therefore to operationalize a way of
+algorithmically describing the face-block (@Fig:t_vs_f, right) that
+@GSuttles1972 and @RGrannis2009 have demonstrated is a fundamental
+building-block of neighbourhood space, and of identifying the connected
+community networks formed of concatenated residential face-blocks.
+
+## Conceptual Definition: Metric Spaces, Topological Neighbourhoods, and Walkable Graphs
+
+In order to analyze the propinquity of neighbours, we need to understand
+how to calculate the proximity of points.
+
+Given some set $X$, a *metric* $d:X^{2}\rightarrow{\mathbb R}$ is a 
+function with the following properties:
+
+- $d(x,y)\geq 0$ for all $x,\,y\in X$.
+
+- $d(x,y)=0$ if and only if $x=y$.
+
+- $d(x,y)=d(y,x)$ for all $x,\,y\in X$.
+
+- $d(x,y)+d(y,z)\geq d(x,z)$ for all $x,\,y,\,z\in X$.
+
+Perhaps the most familiar metric is the Euclidean norm $\|\: \|_{2}$ 
+on ${\mathbb R}^{2}$, derived from the Pythagorean theorem and
+easily extended to ${\mathbb R}^{n}$:
+
+$$\|{\mathbf x}\|_{2}=\left(\sum_{j=1}^{n}x_{j}^{2}\right)^{1/2}$$
+
+We shall use this metric to calculate 
+
+Our earth is of course not a flat Euclidean plane but rather (very
+nearly) an oblate spheroid [@PMathewsShapiro1992]. However, since the 
+geographical positions of our data are given by reference to the British
+National Grid, and since the distances 
+
+
+A *graph* is an ordered tuple $G = (V,E)$, consisting of a set of
+*nodes* (or *vertices*) $V = \{v_{i}\}$, and a set of *edges* $E =
+\{e_{ij}\}$, where the edge $e_{i,j}$ is the ordered pair $(i,j)$
+representing some connection from the *source* $v_{i}$ to the *target*
+$v_{j}$. 
+
+Two nodes connected by an edge are said to be *adjacent* to each other.
+An edge $e_{ii}$ connecting a node $v_{i}$ to itself is called a *loop*;
+the node is then *self-adjacent*.
+
+A graph is *undirected* if $e_{ij} \iff e_{ji}$ -- otherwise it is
+*directed*. It is a *simple* graph if the edges are distinct and
+unrepeated -- otherwise it is a *multigraph*. 
+
+On an undirected graph, we call the number of edges connecting a node
+its *degree*. In a directed graph we distinguish between the *indegree*
+and *outdegree*.
+
+Given a graph G, we can describe a *walk* of length L as a sequence of
+adjacent (but not necessarily distinct) nodes $(v_{0},...,v_{L})$; or,
+equivalently, as a sequence of edges $e_{0,1},...,e_{L-1,L}$.
+Conversely, given a set of walks, we can construct the (minimal)
+underlying graph containing all the nodes and edges involved in the
+walks.
+
+
+## Operational Paradigm: From GIS to Geographic Data Science
+
+
+
+```{.table caption="GeoJSON Geometry Objects {#tbl:geojson}"
+source="../csv/geojson.csv"}
+```
+
+
 ## Computational Setup: Open Data and Free Open-Source Software
 
 
@@ -461,50 +556,9 @@ development [@CBoettiger2015].
 
 ## Data Exploration: Geography and Geometry
 
-```{.table caption="GeoJSON Geometry Objects {#tbl:geojson}"
-source="../csv/geojson.csv"}
-```
-
 ```{.table caption="Some Coordinate Reference Systems {#tbl:crs}"
 source="../csv/crs.csv"}
 ```
-
-## Conceptual Definition: (Geo)Metric Space, Walkable Graphs, and Topological Neighbourhoods
-
-Given some set $X$, a *metric* is a function with the following properties:
-
-- $d(x,y)\geq 0$ for all $x,\,y\in X$.
-
-- $d(x,y)=0$ if and only if $x=y$.
-
-- $d(x,y)=d(y,x)$ for all $x,\,y\in X$.
-
-- $d(x,y)+d(y,z)\geq d(x,z)$ for all $x,\,y,\,z\in X$.
-
-A *graph* is an ordered tuple $G = (V,E)$, consisting of a set of
-*nodes* (or *vertices*) $V = \{v_{i}\}$, and a set of *edges* $E =
-\{e_{ij}\}$, where the edge $e_{i,j}$ is the ordered pair $(i,j)$
-representing some connection from the *source* $v_{i}$ to the *target*
-$v_{j}$. 
-
-Two nodes connected by an edge are said to be *adjacent* to each other.
-An edge $e_{ii}$ connecting a node $v_{i}$ to itself is called a *loop*;
-the node is then *self-adjacent*.
-
-A graph is *undirected* if $e_{ij} \iff e_{ji}$ -- otherwise it is
-*directed*. It is a *simple* graph if the edges are distinct and
-unrepeated -- otherwise it is a *multigraph*. 
-
-On an undirected graph, we call the number of edges connecting a node
-its *degree*. In a directed graph we distinguish between the *indegree*
-and *outdegree*.
-
-Given a graph G, we can describe a *walk* of length L as a sequence of
-adjacent (but not necessarily distinct) nodes $(v_{0},...,v_{L})$; or,
-equivalently, as a sequence of edges $e_{0,1},...,e_{L-1,L}$.
-Conversely, given a set of walks, we can construct the (minimal)
-underlying graph containing all the nodes and edges involved in the
-walks.
 
 # Data Analysis
 
