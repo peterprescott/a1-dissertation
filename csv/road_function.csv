@@ -1,6 +1,5 @@
-,Count (%),Percentile Length (m),Percentile Length (m),Percentile Length (m),Percentile Length (m)
-,,0.25,0.5,0.75,IQR
-Road Function,,,,,
+Road Function,Count (%),,Length of Road Segment (m),,
+,,Q1,Q2,Q3,IQR
 Motorway,"7,124.0 (0.1)",85,327,570,243
 A Road,"285,536.0 (7.5)",33,69,169,100
 B Road,"159,415.0 (4.2)",39,85,204,119
