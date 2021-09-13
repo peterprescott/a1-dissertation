@@ -1,5 +1,4 @@
 ---
-
 title: |
   | Defining a Micro-Geodemographic *Natural Area*
   | with Street-Network Topology
@@ -443,12 +442,12 @@ which naturally divide neighbourhood areas (@Fig:t_vs_f, left).
 bordering streets,\newline and (right) natural Face-Blocks connected by nearest
 streets](../fig/tessellated_vs_faceblocks.png){#fig:t_vs_f}
 
-This is the approach taken by @MFleischmannArribas-Bel2021, who first
-generate tessellated 'enclosures' and then subdivide them into Voronoi
-cells based on building footprint polygons, a technique described by
-@MFleischmannEtAl2020. It was very helpful to learn from the
-implementation of this method, shared openly on GitHub
-[@LDabbishEtAl2012] in reproducible Jupyter notebooks
+This is the approach taken by the Urban Grammar project of
+@MFleischmannArribas-Bel2021, which first generates tessellated
+'enclosures' and then subdivides them into Voronoi cells based on
+building footprint polygons, as described by @MFleischmannEtAl2020. It
+was very helpful to learn from the implementation of this method, shared
+openly on GitHub [@LDabbishEtAl2012] in reproducible Jupyter notebooks
 [@TKluyverEtAl2016; @BRandlesEtAl2017; @GBoeingArribas-Bel2021].
 
 However, in reviewing the literature, it became apparent that while
@@ -459,6 +458,8 @@ algorithmically describing the face-block (@Fig:t_vs_f, right) that
 @GSuttles1972 and @RGrannis2009 have demonstrated is a fundamental
 building-block of neighbourhood space, and of identifying the connected
 community networks formed of concatenated residential face-blocks.
+
+
 
 ## Computational Setup: Open Data and Free Open-Source Software
 
@@ -476,6 +477,9 @@ authoritative national address dataset [@PWells2021].
 ```{.table caption="Ordnance Survey Open Data {#tbl:osdata}"
 source="../csv/osdatadescriptions.csv"}
 ```
+
+\newpage
+
 
 In 2018, the British government's commitment to open geospatial data was
 reiterated with the creation of the GeoSpatial Commission
@@ -505,19 +509,17 @@ unique locational reference numbers, but for streets); the 'Roads' layer
 of the OpenMapLocal dataset, and the OpenRoads dataset (@Tbl:openroads).
 I used the last of these three options.
  
-```{.table caption="Summary Statistics from OS OpenRoads {#tbl:openroads}"
+```{.table caption="Summary Statistics for OS OpenRoads Street Segments {#tbl:openroads}"
 source="../csv/road_function.csv"}
 ```
 
-I also used the simplified coastline data from the now discontinued
-Strategi product. Though no longer being updated, it is still available
-for download through the Ordnance Survey Products API, and for our
-purposes there is no need for the more detailed (and therefore more
-computationally resource-consuming) waterline boundary also available.
-Together with the 'Railways' layer of the OpenMapLocal dataset, the
-OpenRivers dataset, and the major roads from the OpenRoads dataset,
-these provided a full set of boundaries for tessellating Britain into
-naturally bounded areas.
+I also used the simplified coastline data from the Strategi product.
+For our purposes there is no need for the other more detailed (and
+therefore more computationally resource-consuming) waterline boundaries
+also available.  Together with the 'Railways' layer of the OpenMapLocal
+dataset, the OpenRivers dataset, and the major roads from the OpenRoads
+dataset, these provided a full set of boundaries for tessellating
+Britain into naturally bounded areas.
 
 To simplify setup, and to make it easy not only to make my analysis
 reproducible across different machines, but to make it easy to restore
@@ -526,20 +528,15 @@ has become accepted as a powerful solution for reproducible research and
 collaborative software development [@CBoettiger2015]. Docker allows the
 required configuration to be specified as code, run in an isolated
 container, and reproduced straightforwardly simply by building an image
-from the relevant *Dockerfile*. 
+from the relevant Dockerfile. 
 
 I made use of the Geographic Data Science notebook stack maintained by
 @DArribas-Bel2019, which extends the official Jupyter Docker Stack with
 a comprehensive set of geospatial Python libraries [of which
 @MFleischmannEtAl2021a give a full description]. I coupled this with a
 separate Docker container running the most up-to-date version of
-PostGIS, which extends the excellent open-source PostgreSQL
+PostGIS, which extends the excellent open-source database PostgreSQL
 [@BMomjian2001] with the functionality to make spatial queries. 
-
-
-```{.table caption="GeoJSON Geometry Objects {#tbl:geojson}"
-source="../csv/geojson.csv"}
-```
 
 @MFleischmannArribas-Bel2021 download the datasets from the Ordnance
 Survey API within a Jupyter notebook, and save them to a PostGIS
@@ -552,7 +549,8 @@ inject the data from the downloaded GeoPackage directly into the
 database, the process became much quicker: shortening from over an hour,
 to just a few minutes.
 
-## Conceptual Definition: (Geo)Metric Spaces, Walkable Graphs, Topological Neighbourhoods
+
+## Conceptual Definition: Metric Spaces, Topological Neighbourhoods, and Walkable Graphs
 
 In order to analyze the propinquity of neighbours, we need to understand
 how to calculate the proximity of points.
@@ -592,16 +590,12 @@ take into account the curvature of the earth's surface, but its
 calculations will be quicker and more efficient if we simply calculate
 geometrical Euclidean distances.
 
-```{.table caption="Some Coordinate Reference Systems {#tbl:crs}"
+```{.table caption="Some Reference Systems commonly used for tracking
+location in Britain {#tbl:crs}"
 source="../csv/crs.csv"}
 ```
 
  
-
-The 
-
-
-
 A *graph* is an ordered tuple $G = (V,E)$, consisting of a set of
 *nodes* (or *vertices*) $V = \{v_{i}\}$, and a set of *edges* $E =
 \{e_{ij}\}$, where the edge $e_{i,j}$ is the ordered pair $(i,j)$
@@ -615,14 +609,13 @@ Conversely, given a set of walks, we can construct the (minimal)
 underlying graph containing all the nodes and edges involved in the
 walks.
 
-
-
-
 # Data Analysis
 
 ## Boundary Units: Tiles, Pixels, and Cells
 
 ## Neighbourhoods: Residential Face-Blocks and Connected Communities
+
+![Neighbourhoods of Connected Face-Blocks](../fig/neighbourhoods.png){#fig:nbhds}
 
 ## Implementation: Embarrassingly Parallel Neighbourhoods
 
@@ -630,3 +623,4 @@ walks.
 # Conclusion
 
 # References
+
