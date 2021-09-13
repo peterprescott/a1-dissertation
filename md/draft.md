@@ -2,7 +2,6 @@
 title: |
   | Defining a Micro-Geodemographic *Natural Area*
   | with Street-Network Topology
-
 author: Peter Prescott
 abstract: "Abstract..."
 
@@ -58,11 +57,11 @@ collection units do sometimes reflect a high level of sophistication.
 But perhaps here the problem is in fact presented even more starkly, for
 from a *statistical* point of view, it makes sense to design
 neighbourhood zones in such a way as to maximize social homogeneity.
-From a *social* point of view however, such homogeneity is essentially
+From a *social* point of view however, enforcing homogeneity is essentially
 *segregation*, and while as scholars we may be content merely to
 understand its causes [e.g. @TSchelling1969] rather than to resist it
 more directly [e.g. @MKing1968], it becomes impossible to say much about
-whether and why neighbourhoods are not diverse or not, if our only way
+whether and why neighbourhoods are (not) diverse, if our only way
 of defining them is in such terms.
 
 ```{.table caption="An Example of Geodemographic Cluster Description:\newline Groups and Subgroups from the 2011 OAC, created by @CGaleEtAl2016 {#tbl:oac_tbl}"
@@ -430,7 +429,35 @@ to induce the social restraint which makes for public safety (pp.37-71).
 
 # Methodology
 
-## Computational Setup: Free Open-Source Software and Open Data
+## Computational Setup: Open Data and Free Open-Source Software
+
+
+```{.table caption="Ordnance Survey Open Data {#tbl:osdata}"
+source="../csv/osdatadescriptions.csv"}
+```
+
+
+
+pandas @WMcKinney2010
+GeoPandas @KJordahl2014
+GDAL @GDALContributors2021
+NetworkX @AHagbergEtAl2008
+
+@ECodd1970 introduced the relational database model, which became the
+foundation of SQL [@DChamberlin2012].
+PostgreSQL [@BMomjian2001]
+
+
+To simplify setup, and to make it easy to make my analysis reproducible
+across different machines, I used Docker, which has become accepted as a
+powerful solution for reproducible research and collaborative software
+development [@CBoettiger2015]. 
+... the interactive Jupyter notebook interface [@FPerezGranger2015]
+
+@GBoeingArribas-Bel2021 
+
+@MFleischmannEtAl2021 describe the Python geographic data science
+*stack*
 
 ## Data Exploration: Geography and Geometry
 
@@ -442,8 +469,17 @@ source="../csv/geojson.csv"}
 source="../csv/crs.csv"}
 ```
 
-## Conceptual Definition: Metric Spaces, Walkable Graphs, and Topological Neighbourhoods
+## Conceptual Definition: (Geo)Metric Space, Walkable Graphs, and Topological Neighbourhoods
 
+Given some set $X$, a *metric* is a function with the following properties:
+
+- $d(x,y)\geq 0$ for all $x,\,y\in X$.
+
+- $d(x,y)=0$ if and only if $x=y$.
+
+- $d(x,y)=d(y,x)$ for all $x,\,y\in X$.
+
+- $d(x,y)+d(y,z)\geq d(x,z)$ for all $x,\,y,\,z\in X$.
 
 A *graph* is an ordered tuple $G = (V,E)$, consisting of a set of
 *nodes* (or *vertices*) $V = \{v_{i}\}$, and a set of *edges* $E =
@@ -477,6 +513,7 @@ walks.
 ## Neighbourhoods: Residential Face-Blocks and Connected Communities
 
 ## Implementation: Embarrassingly Parallel Neighbourhoods
+
 
 # Conclusion
 
