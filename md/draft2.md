@@ -523,6 +523,7 @@ the OpenRivers dataset, and the major roads from the OpenRoads dataset,
 these provided a full set of boundaries for tessellating Britain into
 naturally bounded areas.
 
+
 To simplify setup, and to make it easy not only to make my analysis
 reproducible across different machines, but to make it easy to restore
 my computational environment if and when necessary, I used Docker, which
@@ -540,7 +541,14 @@ comprehensive set of geospatial Python libraries [of which
 @MFleischmannEtAl2021?? give a full description]. I coupled this with a
 separate Docker container running the most up-to-date version of
 PostGIS, which extends the excellent open-source PostgreSQL
-[@BMomjian2001] with the functionality to make spatial queries.
+[@BMomjian2001] with the functionality to make spatial queries. 
+
+
+```{.table caption="GeoJSON Geometry Objects {#tbl:geojson}"
+source="../csv/geojson.csv"}
+```
+
+
 @MFleischmannArribas-Bel2021 download the datasets from the Ordnance
 Survey API within a Jupyter notebook, and save them to a PostGIS
 database by first loading them into a Geopandas dataframe, but while 
@@ -586,12 +594,19 @@ of the sphere. For a spheroid, the formulae of @Vincenty1975 https://en.wikipedi
 provide iterative methods for calculating the distance precisely.
 However, since the geographical positions of our data are given by
 reference to the British National Grid (@Tbl:crd), and since the distances we are
-here interested in are all small, we can ignore this fact. 
+here interested in are all small, we can ignore this fact. PostGIS is
+capable of calculating geographical distances that take into account the
+curvature of the earth's surface, but its calculations will be quicker
+and more efficient if we simply calculate geometrical Euclidean
+distances.
 
 ```{.table caption="Some Coordinate Reference Systems {#tbl:crs}"
 source="../csv/crs.csv"}
 ```
 
+ 
+
+The 
 
 
 
@@ -610,11 +625,6 @@ walks.
 
 
 
-
-
-```{.table caption="GeoJSON Geometry Objects {#tbl:geojson}"
-source="../csv/geojson.csv"}
-```
 
 # Data Analysis
 
