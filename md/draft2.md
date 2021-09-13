@@ -1,4 +1,5 @@
 ---
+
 title: |
   | Defining a Micro-Geodemographic *Natural Area*
   | with Street-Network Topology
@@ -502,41 +503,54 @@ structures. So for example a terraced row of houses is shown as a single
 building. But by combining the two sets of data, it becomes possible to
 exclude property reference points which refer to outside objects.
 
-For road network data, there were several possible candidates, including
-the USRN dataset (which, like the UPRN, offers unique locational reference
-numbers, but for streets); the roads layer of the OpenMapLocal dataset,
-and the OpenRoads dataset {#Tbl:openroads). I used the last of these
-three options.
+For street (or road) network data, there were several possible
+candidates, including the USRN dataset (which, like the UPRN, offers
+unique locational reference numbers, but for streets); the 'Roads' layer
+of the OpenMapLocal dataset, and the OpenRoads dataset {#Tbl:openroads).
+I used the last of these three options.
  
 ```{.table caption="Summary Statistics from OS OpenRoads {#tbl:openroads}"
 source="../csv/road_function.csv"}
 ```
 
+I also used the simplified coastline data from the now discontinued
+Strategi product. Though no longer being updated, it is still available
+for download through the Ordnance Survey Products API, and for our
+purposes there is no need for the more detailed (and therefore more
+computationally resource-consuming) waterline boundary also available. 
+Together with the 'Railways' layer of the OpenMapLocal dataset, the
+the OpenRivers dataset, and the major roads from the OpenRoads dataset,
+these provided a full set of boundaries for tessellating Britain into
+naturally bounded areas.
 
+To simplify setup, and to make it easy not only to make my analysis
+reproducible across different machines, but to make it easy to restore
+my computational environment if and when necessary, I used Docker, which
+has become accepted as a powerful solution for reproducible research and
+collaborative software development [@CBoettiger2015]. Docker allows the
+required configuration to be specified as code, run in an isolated
+container, and reproduced straightforwardly simply by building an image
+from the relevant *Dockerfile*. 
 
-
-pandas @WMcKinney2010
-GeoPandas @KJordahl2014
-GDAL @GDALContributors2021
-NetworkX @AHagbergEtAl2008
-
-@ECodd1970 introduced the relational database model, which became the
-foundation of SQL [@DChamberlin2012].
-PostgreSQL [@BMomjian2001]
-
-
-To simplify setup, and to make it easy to make my analysis reproducible
-across different machines, I used Docker, which has become accepted as a
-powerful solution for reproducible research and collaborative software
-development [@CBoettiger2015]. 
-... the interactive Jupyter notebook interface [@FPerezGranger2015]
-
-@GBoeingArribas-Bel2021 
-
-@MFleischmannEtAl2021 describe the Python geographic data science
-*stack*
-
-
+I made use of the Geographic Data Science notebook stack maintained by
+@DArribas-Bel2019 [https://github.com/darribas/gds_env], which extends
+the official Jupyter Docker Stack
+[@https://jupyter-docker-stacks.readthedocs.io/en/latest/] with the a
+comprehensive set of geospatial Python libraries [of which
+@MFleischmannEtAl2021?? give a full description]. I coupled this with a
+separate Docker container running the most up-to-date version of
+PostGIS, which extends the excellent open-source PostgreSQL
+[@BMomjian2001] with the functionality to make spatial queries.
+@MFleischmannArribas-Bel2021 download the datasets from the Ordnance
+Survey API within a Jupyter notebook, and save them to a PostGIS
+database by first loading them into a Geopandas dataframe, but while 
+this method is feasible with the smaller OS datasets, it became
+incredibly slow when dealing with almost 40 million rows of UPRN data.
+When I instead used the GDAL ogr2ogr tool [@GDALContributors2021] --
+again, just by pulling the most recent official Docker image -- to
+inject the data from the downloaded GeoPackage directly into the
+database, the process became much quicker: shortening from over an hour,
+to just a few minutes.
 
 ## Conceptual Definition: Metric Spaces, Topological Neighbourhoods, and Walkable Graphs
 
