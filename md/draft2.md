@@ -461,29 +461,59 @@ community networks formed of concatenated residential face-blocks.
 
 ## Computational Setup: Open Data and Free Open-Source Software
 
-To do this I used data from Ordnance Survey's OpenData product suite,
-which was launched in 2010 [@BLilley2011], but has had to navigate a
-certain tensions between various economic and political interests
-[@KField2010]. 
+To do this I used data from Ordnance Survey's OpenData product suite
+(#Tbl:osdata), which was launched in 2010 [@BLilley2011], but has had to
+navigate a certain tensions between various economic, political, and
+legal interests [@KField2010]. In particular, the Ordnance Survey is
+obliged by statute to make its data widely available, but also to
+finance its operations independently through a commercial licensing
+model [@https://www.bailii.org/ew/cases/EWHC/Ch/2019/3007.html], a
+business model which @https://www.owenboswarva.com/blog/post-77m1.htm
+has suggested "combines the worst features of state monopoly and rentier
+capitalism". One significant omission in the catalogue of British open
+data is an authoritative national address dataset
+[@http://peterkwells.com/2021/04/]
+ 
+```{.table caption="Ordnance Survey Open Data {#tbl:osdata}"
+source="../csv/osdatadescriptions.csv"}
+```
 
 In 2018, the British government's commitment to open
 geospatial data was reiterated with the creation of the GeoSpatial
 Commission
 [@https://www.gov.uk/government/publications/geospatial-commission-charter]. 
+While this has not led to the release of authoritative address data, it
+has at least led to the release of the Unique Property Reference Number
+(UPRN) dataset, which includes a geographic location and unique numeric
+identifier for every addressable location in Great Britain found in the
+premium OS AddressBase products. Addressable properties given a UPRN
+include objects such as bus shelters, lamp posts, and public toilets
+[@https://technology.blog.gov.uk/2020/04/02/identifying-properties-and-streets-in-government-data/],
+so although we know that neighbourhood household properties form a
+subset of the UPRN data, we need to somehow eliminate those properties
+that we are not interested in.
 
+This was done by using the 'Buildings' polygons from the OpenMapLocal
+dataset. On their own these cannot either provide us with a proxy for
+neighbourhood households, for they do not give the boundaries of
+individual property plots -- although @MFleischmannArribas-Bel2021
+seem to use them as if they do -- but only of disconnected architectural
+structures. So for example a terraced row of houses is shown as a single
+building. But by combining the two sets of data, it becomes possible to
+exclude property reference points which refer to outside objects.
 
-
-
-Of particular use for my purposes are the OpenRoads data,
-which ,
-the 
-(#Tbl:osdata).  
-
-
+For road network data, there were several possible candidates, including
+the USRN dataset (which, like the UPRN, offers unique locational reference
+numbers, but for streets); the roads layer of the OpenMapLocal dataset,
+and the OpenRoads dataset {#Tbl:openroads). I used the last of these
+three options.
  
-```{.table caption="Ordnance Survey Open Data {#tbl:osdata}"
-source="../csv/osdatadescriptions.csv"}
+```{.table caption="Summary Statistics from OS OpenRoads {#tbl:openroads}"
+source="../csv/road_function.csv"}
 ```
+
+
+
 
 pandas @WMcKinney2010
 GeoPandas @KJordahl2014
