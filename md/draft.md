@@ -1,4 +1,5 @@
 ---
+
 title: |
   | Defining a Micro-Geodemographic *Natural Area*
   | with Street-Network Topology
@@ -442,12 +443,12 @@ which naturally divide neighbourhood areas (@Fig:t_vs_f, left).
 bordering streets,\newline and (right) natural Face-Blocks connected by nearest
 streets](../fig/tessellated_vs_faceblocks.png){#fig:t_vs_f}
 
-This is the approach taken by the Urban Grammar project of
-@MFleischmannArribas-Bel2021, which first generates tessellated
-'enclosures' and then subdivides them into Voronoi cells based on
-building footprint polygons, as described by @MFleischmannEtAl2020. It
-was very helpful to learn from the implementation of this method, shared
-openly on GitHub [@LDabbishEtAl2012] in reproducible Jupyter notebooks
+This is the approach taken by @MFleischmannArribas-Bel2021, who first
+generate tessellated 'enclosures' and then subdivide them into Voronoi
+cells based on building footprint polygons, a technique described by
+@MFleischmannEtAl2020. It was very helpful to learn from the
+implementation of this method, shared openly on GitHub
+[@LDabbishEtAl2012] in reproducible Jupyter notebooks
 [@TKluyverEtAl2016; @BRandlesEtAl2017; @GBoeingArribas-Bel2021].
 
 However, in reviewing the literature, it became apparent that while
@@ -459,7 +460,99 @@ algorithmically describing the face-block (@Fig:t_vs_f, right) that
 building-block of neighbourhood space, and of identifying the connected
 community networks formed of concatenated residential face-blocks.
 
-## Conceptual Definition: Metric Spaces, Topological Neighbourhoods, and Walkable Graphs
+## Computational Setup: Open Data and Free Open-Source Software
+
+To do this I used data from Ordnance Survey's OpenData product suite
+(@Tbl:osdata), which was launched in 2010 [@BLilley2011], but has had to
+navigate a certain tensions between various economic, political, and
+legal interests [@KField2010]. In particular, the Ordnance Survey is
+obliged by statute to make its data widely available, but also to
+finance its operations independently through a commercial licensing
+model [@CBirss2019], a business model which @OBoswarva2019 has suggested
+"combines the worst features of state monopoly and rentier capitalism".
+One significant omission in the catalogue of British open data is an
+authoritative national address dataset [@PWells2021].
+ 
+```{.table caption="Ordnance Survey Open Data {#tbl:osdata}"
+source="../csv/osdatadescriptions.csv"}
+```
+
+In 2018, the British government's commitment to open geospatial data was
+reiterated with the creation of the GeoSpatial Commission
+[@CabinetOffice2020].  While this has not led to the release of
+authoritative address data, it has at least led to the release of the
+Unique Property Reference Number (UPRN) dataset, which includes a
+geographic location and unique numeric identifier for every addressable
+location in Great Britain found in the premium OS AddressBase products.
+Addressable properties given a UPRN include objects such as bus
+shelters, lamp posts, and public toilets [@LGreenwoodBrandwood2020], so
+although we know that neighbourhood household properties form a subset
+of the UPRN data, we need to somehow eliminate those properties that we
+are not interested in.
+
+This was done by using the 'Buildings' polygons from the OpenMapLocal
+dataset. On their own these cannot either provide us with a proxy for
+neighbourhood households, for they do not give the boundaries of
+individual property plots -- although @MFleischmannArribas-Bel2021
+seem to use them as if they do -- but only of disconnected architectural
+structures. So for example a terraced row of houses is shown as a single
+building. But by combining the two sets of data, it becomes possible to
+exclude property reference points which refer to outside objects.
+
+For street (or road) network data, there were several possible
+candidates, including the USRN dataset (which, like the UPRN, offers
+unique locational reference numbers, but for streets); the 'Roads' layer
+of the OpenMapLocal dataset, and the OpenRoads dataset (@Tbl:openroads).
+I used the last of these three options.
+ 
+```{.table caption="Summary Statistics from OS OpenRoads {#tbl:openroads}"
+source="../csv/road_function.csv"}
+```
+
+I also used the simplified coastline data from the now discontinued
+Strategi product. Though no longer being updated, it is still available
+for download through the Ordnance Survey Products API, and for our
+purposes there is no need for the more detailed (and therefore more
+computationally resource-consuming) waterline boundary also available.
+Together with the 'Railways' layer of the OpenMapLocal dataset, the
+OpenRivers dataset, and the major roads from the OpenRoads dataset,
+these provided a full set of boundaries for tessellating Britain into
+naturally bounded areas.
+
+To simplify setup, and to make it easy not only to make my analysis
+reproducible across different machines, but to make it easy to restore
+my computational environment if and when necessary, I used Docker, which
+has become accepted as a powerful solution for reproducible research and
+collaborative software development [@CBoettiger2015]. Docker allows the
+required configuration to be specified as code, run in an isolated
+container, and reproduced straightforwardly simply by building an image
+from the relevant *Dockerfile*. 
+
+I made use of the Geographic Data Science notebook stack maintained by
+@DArribas-Bel2019, which extends the official Jupyter Docker Stack with
+a comprehensive set of geospatial Python libraries [of which
+@MFleischmannEtAl2021a give a full description]. I coupled this with a
+separate Docker container running the most up-to-date version of
+PostGIS, which extends the excellent open-source PostgreSQL
+[@BMomjian2001] with the functionality to make spatial queries. 
+
+
+```{.table caption="GeoJSON Geometry Objects {#tbl:geojson}"
+source="../csv/geojson.csv"}
+```
+
+@MFleischmannArribas-Bel2021 download the datasets from the Ordnance
+Survey API within a Jupyter notebook, and save them to a PostGIS
+database by first loading them into a Geopandas dataframe, but while
+this method is feasible with the smaller OS datasets, it became
+incredibly slow when dealing with almost 40 million rows of UPRN data.
+When I instead used the GDAL ogr2ogr tool [@GDALContributors2021] --
+again, just by pulling the most recent official Docker image -- to
+inject the data from the downloaded GeoPackage directly into the
+database, the process became much quicker: shortening from over an hour,
+to just a few minutes.
+
+## Conceptual Definition: (Geo)Metric Spaces, Walkable Graphs, Topological Neighbourhoods
 
 In order to analyze the propinquity of neighbours, we need to understand
 how to calculate the proximity of points.
@@ -481,12 +574,32 @@ easily extended to ${\mathbb R}^{n}$:
 
 $$\|{\mathbf x}\|_{2}=\left(\sum_{j=1}^{n}x_{j}^{2}\right)^{1/2}$$
 
-We shall use this metric to calculate 
+This is the metric that our analysis uses to calculate the distance
+between a property and its nearest street or building.
 
 Our earth is of course not a flat Euclidean plane but rather (very
-nearly) an oblate spheroid [@PMathewsShapiro1992]. However, since the 
-geographical positions of our data are given by reference to the British
-National Grid, and since the distances 
+nearly) an oblate spheroid [@PMathewsShapiro1992]. To calculate the
+distance between two points on the surface of a sphere, we should
+calculate the *great-circle distance*, that is the distance along the
+shorter arc of the circle which cuts through both points and the centre
+of the sphere. For a spheroid, the formulae of @TVincenty1975,
+-@TVincenty1975a provide iterative methods for calculating the distance
+precisely.  However, since the geographical positions of our data are
+given by reference to the British National Grid (@Tbl:crs), and since
+the distances we are here interested in are all small, we can ignore
+this fact. PostGIS is capable of calculating geographical distances that
+take into account the curvature of the earth's surface, but its
+calculations will be quicker and more efficient if we simply calculate
+geometrical Euclidean distances.
+
+```{.table caption="Some Coordinate Reference Systems {#tbl:crs}"
+source="../csv/crs.csv"}
+```
+
+ 
+
+The 
+
 
 
 A *graph* is an ordered tuple $G = (V,E)$, consisting of a set of
@@ -494,18 +607,6 @@ A *graph* is an ordered tuple $G = (V,E)$, consisting of a set of
 \{e_{ij}\}$, where the edge $e_{i,j}$ is the ordered pair $(i,j)$
 representing some connection from the *source* $v_{i}$ to the *target*
 $v_{j}$. 
-
-Two nodes connected by an edge are said to be *adjacent* to each other.
-An edge $e_{ii}$ connecting a node $v_{i}$ to itself is called a *loop*;
-the node is then *self-adjacent*.
-
-A graph is *undirected* if $e_{ij} \iff e_{ji}$ -- otherwise it is
-*directed*. It is a *simple* graph if the edges are distinct and
-unrepeated -- otherwise it is a *multigraph*. 
-
-On an undirected graph, we call the number of edges connecting a node
-its *degree*. In a directed graph we distinguish between the *indegree*
-and *outdegree*.
 
 Given a graph G, we can describe a *walk* of length L as a sequence of
 adjacent (but not necessarily distinct) nodes $(v_{0},...,v_{L})$; or,
@@ -515,50 +616,7 @@ underlying graph containing all the nodes and edges involved in the
 walks.
 
 
-## Operational Paradigm: From GIS to Geographic Data Science
 
-
-
-```{.table caption="GeoJSON Geometry Objects {#tbl:geojson}"
-source="../csv/geojson.csv"}
-```
-
-
-## Computational Setup: Open Data and Free Open-Source Software
-
-
-```{.table caption="Ordnance Survey Open Data {#tbl:osdata}"
-source="../csv/osdatadescriptions.csv"}
-```
-
-
-
-pandas @WMcKinney2010
-GeoPandas @KJordahl2014
-GDAL @GDALContributors2021
-NetworkX @AHagbergEtAl2008
-
-@ECodd1970 introduced the relational database model, which became the
-foundation of SQL [@DChamberlin2012].
-PostgreSQL [@BMomjian2001]
-
-
-To simplify setup, and to make it easy to make my analysis reproducible
-across different machines, I used Docker, which has become accepted as a
-powerful solution for reproducible research and collaborative software
-development [@CBoettiger2015]. 
-... the interactive Jupyter notebook interface [@FPerezGranger2015]
-
-@GBoeingArribas-Bel2021 
-
-@MFleischmannEtAl2021 describe the Python geographic data science
-*stack*
-
-## Data Exploration: Geography and Geometry
-
-```{.table caption="Some Coordinate Reference Systems {#tbl:crs}"
-source="../csv/crs.csv"}
-```
 
 # Data Analysis
 
