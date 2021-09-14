@@ -660,6 +660,16 @@ equivalently, as a sequence of edges $e_{0,1},...,e_{L-1,L}$. If we have
 an undirected graph with positive weights, then we can define a metric
 by the shortest walk between any two points.
 
+The idea of a graph, in which edges connect precisely two points, can be
+extended to that of a *hypergraph*, where *hyperedges* can connect any number
+of points. For our purposes, if we consider a street segment to connect to 
+each other all the properties which have that street as their nearest
+street, and also to the nodes at its ends, then our graph of street
+segment edges becomes a hypergraph in which each property connects to
+exactly one single edge. 
+
+A *face-block* $F$ is then the set of properties connected by any street 
+segment edge. The 
 
 
 # Data Analysis
