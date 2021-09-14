@@ -570,7 +570,7 @@ Perhaps the most familiar metric is the Euclidean norm $\|\: \|_{2}$
 on ${\mathbb R}^{2}$, derived from the Pythagorean theorem and
 easily extended to ${\mathbb R}^{n}$:
 
-$$\|{\mathbf x}\|_{2}=\left(\sum_{j=1}^{n}x_{j}^{2}\right)^{1/2}$$
+$$ \|{\mathbf x}\|_{2}=\left(\sum_{j=1}^{n}x_{j}^{2}\right)^{1/2} $$
 
 This is the metric that our analysis uses to calculate the distance
 between a property and its nearest street or building.
@@ -626,22 +626,41 @@ It is interesting given our topic in hand to note that mathematical
 topology includes a well-defined concept of *neighbourhood*:
 
 If $(X,\tau)$ be a topological space. For $x\in X$, we say that 
-$N$ is a \emph{neighbourhood} of $x$ if we can find $U\in\tau$ with
+$N$ is a neighbourhood of $x$ if we can find $U\in\tau$ with
 $x\in U\subseteq N$.
- 
- 
-A *graph* is an ordered tuple $G = (V,E)$, consisting of a set of
-*nodes* (or *vertices*) $V = \{v_{i}\}$, and a set of *edges* $E =
-\{e_{ij}\}$, where the edge $e_{i,j}$ is the ordered pair $(i,j)$
-representing some connection from the *source* $v_{i}$ to the *target*
-$v_{j}$. 
+
+This does not answer the question of how to define a socially meaningful
+*human* neighbourhood, but it is interesting that even from the precise
+perspective of pure mathematics, there is not necessarily a unique
+answer to the question of what the neighbourhood is of a given element
+in a set; rather, there may be multiple containing sets that fulfil the
+conditions necessary to be a neighbourhood.
+
+Rather than considering the whole continuous space of the plane of the
+British National Grid, all we really want to consider are the discrete
+points that represent households, and the (continuous) lines that
+represent streets. The Ordnance Survey OpenRoads dataset models the
+British road network as a graph of undirected street segment *edges*
+connecting the *nodes* of street intersections.
+
+In mathematical graph theory, a *graph* is an ordered tuple $G = (V,E)$,
+consisting of a set of *nodes* (or *vertices*) $V = \{v_{i}\}$, and a
+set of *edges* $E = \{e_{ij}\}$, where the edge $e_{i,j}$ is the ordered
+pair $(i,j)$ representing some connection from the *source* $v_{i}$ to
+the *target* $v_{j}$. A *weighted* graph has a function $w:E\rightarrow
+\mathbb{R}$; in our example of streets, a possible weight function would
+be the length of the street. In an *undirected* graph, the presence of
+the edge $e_{i,j}$ implies and is implied by the reverse edge $e_{i,j}$,
+and there are no one-way connections; in a *directed* graph, this is not 
+true.
 
 Given a graph G, we can describe a *walk* of length L as a sequence of
 adjacent (but not necessarily distinct) nodes $(v_{0},...,v_{L})$; or,
-equivalently, as a sequence of edges $e_{0,1},...,e_{L-1,L}$.
-Conversely, given a set of walks, we can construct the (minimal)
-underlying graph containing all the nodes and edges involved in the
-walks.
+equivalently, as a sequence of edges $e_{0,1},...,e_{L-1,L}$. If we have
+an undirected graph with positive weights, then we can define a metric
+by the shortest walk between any two points.
+
+
 
 # Data Analysis
 
