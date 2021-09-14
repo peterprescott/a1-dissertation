@@ -687,8 +687,8 @@ exactly one single edge.
 
 A *face-block* $F$ is then the set of properties connected by any street 
 segment edge, and the set of all face-blocks forms the basis of a
-topology, in which the neighbourhood of any property is its face-block,
-together with any other face-block.
+topology, in which the (topological) neighbourhood of any property is
+any set of properties which includes its face-block.
 
 # Data Analysis
 
