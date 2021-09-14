@@ -575,26 +575,60 @@ $$\|{\mathbf x}\|_{2}=\left(\sum_{j=1}^{n}x_{j}^{2}\right)^{1/2}$$
 This is the metric that our analysis uses to calculate the distance
 between a property and its nearest street or building.
 
-Our earth is of course not a flat Euclidean plane but rather (very
-nearly) an oblate spheroid [@PMathewsShapiro1992]. To calculate the
-distance between two points on the surface of a sphere, we should
-calculate the *great-circle distance*, that is the distance along the
-shorter arc of the circle which cuts through both points and the centre
-of the sphere. For a spheroid, the formulae of @TVincenty1975,
--@TVincenty1975a provide iterative methods for calculating the distance
-precisely.  However, since the geographical positions of our data are
-given by reference to the British National Grid (@Tbl:crs), and since
-the distances we are here interested in are all small, we can ignore
-this fact. PostGIS is capable of calculating geographical distances that
-take into account the curvature of the earth's surface, but its
-calculations will be quicker and more efficient if we simply calculate
-geometrical Euclidean distances.
+It has become a commonplace in certain streams of critical geography to
+criticize quantitive geography for being "intrinsically tied to
+absolute, Euclidean and Cartesian perspectives on space"
+[@DOSullivanEtAl2018
+tandfonline.com/doi/pdf/10.1080/00330124.2017.13260811] -- and in fact,
+even quantitatively speaking, the Earth is of course not a flat
+Euclidean plane but rather (very nearly) an oblate spheroid
+[@PMathewsShapiro1992]. 
+
+To calculate the distance between two points on the surface of a sphere,
+we should calculate the *great-circle distance*, that is the distance
+along the shorter arc of the circle which cuts through both points and
+the centre of the sphere. For a spheroid, the formulae of
+@TVincenty1975, -@TVincenty1975a provide iterative methods for
+calculating the distance precisely.  However, since the geographical
+positions of our data are given by reference to the British National
+Grid (@Tbl:crs), and since the distances we are here interested in are
+all small, we will ignore the earth's curvature. 
 
 ```{.table caption="Some Reference Systems commonly used for tracking
 location in Britain {#tbl:crs}"
 source="../csv/crs.csv"}
 ```
 
+But the critical geographers are right to assert that humans inhabit a
+relational and social space which should not be blindly assumed to have
+the features of a mathematical metric space. In particular, the
+requirement that a metric is *symmetric* (that is $d(x,y)=d(y,x)$ for
+all $x,\,y\in X$), seems too strong to hold in many situations. A simple
+example of where it does not hold, would be that of distances by road
+where the road network includes one way streets.
+
+The mathematical study of structured spaces more general than metric
+spaces is called *topology*. Specifically, if we have a set $X$ and
+$\tau$ is a set of subsets of $X$ with the following properties:
+
+(i) The empty set $\emptyset\in \tau$ and the space $X\in\tau$.
+
+(ii) If $U_{\alpha}\in\tau$ for all $\alpha\in A$, then
+$\bigcup_{\alpha\in A} U_{\alpha}\in\tau$.
+
+(iii) If $U_{j}\in\tau$ for all $1\leq j\leq n$, then $\bigcap_{j=1}^{n}
+U_{j}\in\tau$.
+
+Then we say that $\tau$ is a *topology* on $X$ and that $(X,\tau)$ is a
+*topological space*.
+
+It is interesting given our topic in hand to note that mathematical
+topology includes a well-defined concept of *neighbourhood*:
+
+If $(X,\tau)$ be a topological space. For $x\in X$, we say that 
+$N$ is a \emph{neighbourhood} of $x$ if we can find $U\in\tau$ with
+$x\in U\subseteq N$.
+ 
  
 A *graph* is an ordered tuple $G = (V,E)$, consisting of a set of
 *nodes* (or *vertices*) $V = \{v_{i}\}$, and a set of *edges* $E =
