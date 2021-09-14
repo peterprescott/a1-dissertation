@@ -578,21 +578,20 @@ between a property and its nearest street or building.
 It has become a commonplace in certain streams of critical geography to
 criticize quantitive geography for being "intrinsically tied to
 absolute, Euclidean and Cartesian perspectives on space"
-[@DOSullivanEtAl2018
-tandfonline.com/doi/pdf/10.1080/00330124.2017.13260811] -- and in fact,
-even quantitatively speaking, the Earth is of course not a flat
-Euclidean plane but rather (very nearly) an oblate spheroid
-[@PMathewsShapiro1992]. 
+[@DOSullivanEtAl2018]. A pedantically quantitative geographer might reply
+that actually the Earth is not a flat plane on which the Euclidean
+metric suffices, but rather (very nearly) an oblate spheroid
+[@PMathewsShapiro1992]. To calculate the distance between two points on
+the surface of a sphere, we should calculate the *great-circle
+distance*, that is the distance along the shorter arc of the circle
+which cuts through both points and the centre of the sphere. For a
+spheroid, the formulae of @TVincenty1975, -@TVincenty1975a provide
+iterative methods for calculating the distance precisely.
 
-To calculate the distance between two points on the surface of a sphere,
-we should calculate the *great-circle distance*, that is the distance
-along the shorter arc of the circle which cuts through both points and
-the centre of the sphere. For a spheroid, the formulae of
-@TVincenty1975, -@TVincenty1975a provide iterative methods for
-calculating the distance precisely.  However, since the geographical
-positions of our data are given by reference to the British National
-Grid (@Tbl:crs), and since the distances we are here interested in are
-all small, we will ignore the earth's curvature. 
+(In fact, since the geographical positions of our data are given by
+reference to the British National Grid (@Tbl:crs), and since the
+distances we are here interested in are all small, we will ignore the
+earth's curvature.)
 
 ```{.table caption="Some Reference Systems commonly used for tracking
 location in Britain {#tbl:crs}"
@@ -602,47 +601,28 @@ source="../csv/crs.csv"}
 But the critical geographers are right to assert that humans inhabit a
 relational and social space which should not be blindly assumed to have
 the features of a mathematical metric space. In particular, the
-requirement that a metric is *symmetric* (that is $d(x,y)=d(y,x)$ for
-all $x,\,y\in X$), seems too strong to hold in many situations. A simple
+requirement that a metric is *symmetric* -- that is $d(x,y)=d(y,x)$ for
+all $x,\,y\in X$ -- seems too strong to hold in many situations. A simple
 example of where it does not hold, would be that of distances by road
 where the road network includes one way streets.
 
 The mathematical study of structured spaces more general than metric
-spaces is called *topology*. Specifically, if we have a set $X$ and
-$\tau$ is a set of subsets of $X$ with the following properties:
+spaces is called *topology* [@TKorner2013]. Specifically, if we have a
+set $X$, then $\tau$ the set of subsets of $X$ is a topology if the
+following hold:
 
-(i) The empty set $\emptyset\in \tau$ and the space $X\in\tau$.
+- The empty set $\emptyset\in \tau$ and the space $X\in\tau$.
 
-(ii) If $U_{\alpha}\in\tau$ for all $\alpha\in A$, then
-$\bigcup_{\alpha\in A} U_{\alpha}\in\tau$.
+- If $U_{\alpha}\in\tau$ for all $\alpha\in A$, then $\bigcup_{\alpha\in
+  A} U_{\alpha}\in\tau$.
 
-(iii) If $U_{j}\in\tau$ for all $1\leq j\leq n$, then $\bigcap_{j=1}^{n}
+- If $U_{j}\in\tau$ for all $1\leq j\leq n$, then $\bigcap_{j=1}^{n}
 U_{j}\in\tau$.
 
-Then we say that $\tau$ is a *topology* on $X$ and that $(X,\tau)$ is a
-*topological space*.
+It seems relevant to note that mathematical topology includes a
+well-defined concept of *neighbourhood*:
 
-An alternative way of thinking about such things is with the idea of a
-*basis*.  For a set $X$, a collection ${\mathcal B}$ of subsets is
-called a \emph{basis} if the following conditions hold:
-
-(i) $\bigcup_{B\in{\mathcal B}}B=X$.
-
-(ii) If $B_{1},\,B_{2}\in{\mathcal B}$ and $x\in B_{1}\cap B_{2}$ we can
-find a $B_{3}\in{\mathcal B}$ such that $x\in B_{3}\subseteq B_{1}\cap
-B_{2}$ 
-
-Let $X$ be a set and ${\mathcal B}$ a collection of subsets of $X$. Let
-$\tau_{\mathcal B}$ be the collection of sets $U$ such that, whenever
-$x\in U$ we can find a $B\in{\mathcal B}$ such that $x\in B\subset U$.
-
-It can be shown that $\tau_{\mathcal B}$ is a topology if and only if
-${\mathcal B}$ is a basis.
-
-It is interesting given our topic in hand to note that mathematical
-topology includes a well-defined concept of *neighbourhood*:
-
-If $(X,\tau)$ be a topological space. For $x\in X$, we say that 
+If $(X,\tau)$ be a topological space, then for $x\in X$, we say that 
 $N$ is a neighbourhood of $x$ if we can find $U\in\tau$ with
 $x\in U\subseteq N$.
 
@@ -653,7 +633,8 @@ answer to the question of what the neighbourhood is of a given element
 in a set; rather, there may be multiple containing sets that fulfil the
 conditions necessary to be a neighbourhood.
 
-Rather than considering the whole continuous space of the plane of the
+Now, regardless of whether it be Euclidean, spherical, or oblate spheroid,
+rather than considering the whole continuous space of the plane of the
 British National Grid, all we really want to consider are the discrete
 points that represent households, and the (continuous) lines that
 represent streets. The Ordnance Survey OpenRoads dataset models the
@@ -662,7 +643,7 @@ connecting the *nodes* of street intersections.
 
 In mathematical graph theory, a *graph* is an ordered tuple $G = (V,E)$,
 consisting of a set of *nodes* (or *vertices*) $V = \{v_{i}\}$, and a
-set of *edges* $E = \{e_{ij}\}$, where the edge $e_{i,j}$ is the ordered
+set of *edges* $E = \{e_{ij}\} $, where the edge $e_{i,j}$ is the ordered
 pair $(i,j)$ representing some connection from the *source* $v_{i}$ to
 the *target* $v_{j}$. A *weighted* graph has a function $w:E\rightarrow
 \mathbb{R}$; in our example of streets, a possible weight function would
@@ -674,8 +655,8 @@ true.
 Given a graph G, we can describe a *walk* of length L as a sequence of
 adjacent (but not necessarily distinct) nodes $(v_{0},...,v_{L})$; or,
 equivalently, as a sequence of edges $e_{0,1},...,e_{L-1,L}$. If we have
-an undirected graph with positive weights, then we can define a metric
-by the shortest walk between any two points.
+an undirected graph with positive weights, then we could define a metric
+on the graph by the shortest walk between any two points.
 
 The idea of a graph, in which edges connect precisely two points, can be
 extended to that of a *hypergraph*, where *hyperedges* can connect any number
@@ -686,9 +667,9 @@ segment edges becomes a hypergraph in which each property connects to
 exactly one single edge. 
 
 A *face-block* $F$ is then the set of properties connected by any street 
-segment edge, and the set of all face-blocks forms the basis of a
-topology, in which the (topological) neighbourhood of any property is
-any set of properties which includes its face-block.
+segment edge, and the power-set of all face-blocks forms a topology, in
+which the (topological) neighbourhood of any property is any set of
+properties which includes its face-block.
 
 # Data Analysis
 
