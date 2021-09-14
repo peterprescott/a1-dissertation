@@ -622,6 +622,23 @@ U_{j}\in\tau$.
 Then we say that $\tau$ is a *topology* on $X$ and that $(X,\tau)$ is a
 *topological space*.
 
+An alternative way of thinking about such things is with the idea of a
+*basis*.  For a set $X$, a collection ${\mathcal B}$ of subsets is
+called a \emph{basis} if the following conditions hold:
+
+(i) $\bigcup_{B\in{\mathcal B}}B=X$.
+
+(ii) If $B_{1},\,B_{2}\in{\mathcal B}$ and $x\in B_{1}\cap B_{2}$ we can
+find a $B_{3}\in{\mathcal B}$ such that $x\in B_{3}\subseteq B_{1}\cap
+B_{2}$ 
+
+Let $X$ be a set and ${\mathcal B}$ a collection of subsets of $X$. Let
+$\tau_{\mathcal B}$ be the collection of sets $U$ such that, whenever
+$x\in U$ we can find a $B\in{\mathcal B}$ such that $x\in B\subset U$.
+
+It can be shown that $\tau_{\mathcal B}$ is a topology if and only if
+${\mathcal B}$ is a basis.
+
 It is interesting given our topic in hand to note that mathematical
 topology includes a well-defined concept of *neighbourhood*:
 
@@ -669,12 +686,13 @@ segment edges becomes a hypergraph in which each property connects to
 exactly one single edge. 
 
 A *face-block* $F$ is then the set of properties connected by any street 
-segment edge. The 
-
+segment edge, and the set of all face-blocks forms the basis of a
+topology, in which the neighbourhood of any property is its face-block,
+together with any other face-block.
 
 # Data Analysis
 
-## Boundary Units: Tiles, Pixels, and Cells
+## Tessellating Boundaries: Motorways and other Borders 
 
 ## Neighbourhoods: Residential Face-Blocks and Connected Communities
 
