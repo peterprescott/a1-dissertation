@@ -1,12 +1,10 @@
-,Count (%),Percentile Length (m),Percentile Length (m),Percentile Length (m),Percentile Length (m)
-,,0.25,0.5,0.75,IQR
-Road Function,,,,,
-Motorway,"7,124.0 (0.1)",85,327,570,243
-A Road,"285,536.0 (7.5)",33,69,169,100
-B Road,"159,415.0 (4.2)",39,85,204,119
-Minor Road,"676,167.0 (17.9)",43,101,275,174
-Local Road,"1,650,781.0 (43.8)",43,68,109,41
-Local Access Road,"45,307.0 (1.2)",44,73,137,64
-Restricted Local Access Road,"803,087.0 (21.3)",50,100,200,100
-Secondary Access Road,"133,522.0 (3.5)",39,53,86,33
-Total,"3,760,939.0 (100.0)",43,76,146,70
+Road Function,Count (%),Length/m (Q1),Length/m (Q2),Length/m (Q3),IQR
+Motorway,"7,124 (0.1)",85,327,570,485
+A Road,"285,536 (7.5)",33,69,169,136
+B Road,"159,415 (4.2)",39,85,204,165
+Minor Road,"676,167 (17.9)",43,101,275,232
+Local Road,"1,650,781 (43.8)",43,68,109,66
+Local Access Road,"45,307 (1.2)",44,73,137,93
+Restricted Local Access Road,"803,087 (21.3)",50,100,200,150
+Secondary Access Road,"133,522 (3.5)",39,53,86,47
+Total,"3,760,939 (100.0)",43,76,146,103
